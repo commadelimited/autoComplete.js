@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jQM Autocomplete</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" />
+	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
+	<script src="jqm.autoComplete.min-1.0.js"></script>
+</head>
+
+<body>
+
+	<div data-role="page" id="mainPage">
+
+		<div data-role="header">
+			<h1>jQM Autocomplete</h1>
+		</div>
+
+		<div data-role="content">
+
+			<a href="index.html" data-role="button" data-ajax="false">Simple Data</a>
+
+			<p>
+				<input type="text" id="searchField" placeholder="US States">
+				<ul id="suggestions" data-role="listview" data-inset="true"></ul>
+			</p>
+
+		</div>
+
+	</div>
+
+	<script>
+		$("#mainPage").on("pageshow", function(e) {
+
+			$("#searchField").autocomplete({
+				target: $('#suggestions'),
+				source: 'data.cfc?method=search&returnformat=json&data=complex',
+				link: 'testing.cfm?term=',
+				minLength: 0
+			});
+		});
+	</script>
+
+</body>
+</html>
