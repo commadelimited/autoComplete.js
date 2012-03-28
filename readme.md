@@ -13,12 +13,42 @@ Clone the git repo - `git clone git@github.com:commadelimited/autoComplete.js.gi
 
 ## Usage & Documentation
 
+
 	$("#searchField").autocomplete({
 		target: $('#suggestions'), // the listview to receive results
 		source: 'data.cfc?method=search&returnformat=json', // URL return JSON data
 		link: 'testing.cfm?term=', // link to be attached to each result
 		minLength: 0 // minimum length of search string
 	});
+
+AutoComplete.js can read data in one of two ways: simple or complex. Simple data should be returned from the source in the following format:
+
+	[
+		"Maine",
+		"Maryland",
+		"Massachusetts"
+	]
+
+Causing the resulting code to look like this: `<a href="testing.cfm?term=Maine">Maine</a>`
+
+Complex data allows the developer to specify which value goes where. AutoComplete.js requires data to be returned in a specific format:
+
+	[
+		{
+			value: "22",
+			label: "Maine"
+		},
+		{
+			value: "23",
+			label: "Maryland"
+		},
+		{
+			value: "24",
+			label: "Massachusetts"
+		}
+	]
+
+Causing the resulting code to look like this: `<a href="testing.cfm?term=22">Maine</a>`
 
 ## Contributing
 
