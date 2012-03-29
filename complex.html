@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" />
 	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
-	<script src="jqm.autoComplete.min-1.0.js"></script>
+	<script src="jqm.autoComplete-1.1.js"></script>
 </head>
 
 <body>
@@ -16,11 +16,33 @@
 
 		<div data-role="header">
 			<h1>jQM Autocomplete</h1>
+			<div data-role="navbar">
+				<ul>
+					<a href="index.html" data-ajax="false">Simple Data</a>
+					<a href="complex.html" data-ajax="false" class="ui-btn-active">Complex Data</a>
+					<a href="array.html" data-ajax="false">Array Data</a>
+				</ul>
+			</div>
 		</div>
 
 		<div data-role="content">
 
-			<a href="index.html" data-role="button" data-ajax="false">Simple Data</a>
+			<p>
+				In this example autoComplete returns an array of objects from a remote url, each with a label and a value key.
+			</p>
+
+			<pre>
+[
+    {
+        value: "22",
+        label: "Maine"
+    },
+    {
+        value: "23",
+        label: "Maryland"
+    }
+]
+			</pre>
 
 			<p>
 				<input type="text" id="searchField" placeholder="US States">

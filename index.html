@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" />
 	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
-	<script src="jqm.autoComplete.min-1.0.js"></script>
+	<script src="jqm.autoComplete-1.1.js"></script>
 </head>
 
 <body>
@@ -16,11 +16,27 @@
 
 		<div data-role="header">
 			<h1>jQM Autocomplete</h1>
+			<div data-role="navbar">
+				<ul>
+					<a href="index.html" data-ajax="false" class="ui-btn-active">Simple Data</a>
+					<a href="complex.html" data-ajax="false">Complex Data</a>
+					<a href="array.html" data-ajax="false">Array Data</a>
+				</ul>
+			</div>
 		</div>
 
 		<div data-role="content">
 
-			<a href="complex.html" data-role="button" data-ajax="false">Complex Data</a>
+			<p>
+				In this example autoComplete returns an array of strings from a remote url.
+			</p>
+
+			<pre>
+[
+    "Maine",
+    "Maryland"
+]
+			</pre>
 
 			<p>
 				<input type="text" id="searchField" placeholder="US States">
@@ -36,14 +52,16 @@
 	</div>
 
 	<script>
-		$("#mainPage").on("pageshow", function(e) {
 
+		$("#mainPage").bind("pageshow", function(e) {
+			
 			$("#searchField").autocomplete({
 				target: $('#suggestions'),
 				source: 'data.cfc?method=search&returnformat=json&data=simple',
 				link: 'testing.cfm?term=',
 				minLength: 0
 			});
+
 		});
 	</script>
 

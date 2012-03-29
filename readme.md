@@ -4,6 +4,8 @@ AutoComplete is a jQuery Mobile plugin which allows developers to add autoComple
 
 Based on the [blog entry ](http://www.raymondcamden.com/index.cfm/2012/3/27/Example-of-Autocomplete-in-jQuery-Mobile) of Raymond Camden ([@cfjedimaster](https://github.com/cfjedimaster)).
 
+
+
 ## Example
 View a simple [demo of autoComplete](http://andymatthews.net/code/autocomplete/)
 
@@ -21,7 +23,9 @@ Clone the git repo - `git clone git@github.com:commadelimited/autoComplete.js.gi
 		minLength: 0 // minimum length of search string
 	});
 
-AutoComplete.js can read data in one of two ways: simple or complex. Simple data should be returned from the source in the following format:
+AutoComplete can access local arrays, or remote data sources.
+
+AutoComplete.js can read data in one of three ways: simple or complex. Simple data should be returned from the source in the following format:
 
 	[
 		"Maine",
