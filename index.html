@@ -21,6 +21,7 @@
 					<a href="index.html" data-ajax="false" class="ui-btn-active">Simple Data</a>
 					<a href="complex.html" data-ajax="false">Complex Data</a>
 					<a href="array.html" data-ajax="false">Array Data</a>
+					<a href="local_complex.html" data-ajax="false">Local Complex Data</a>
 				</ul>
 			</div>
 		</div>
@@ -54,7 +55,7 @@
 	<script>
 
 		$("#mainPage").bind("pageshow", function(e) {
-			
+
 			$("#searchField").autocomplete({
 				target: $('#suggestions'),
 				source: 'data.cfc?method=search&returnformat=json&data=simple',
@@ -67,3 +68,4 @@
 
 </body>
 </html>
+
