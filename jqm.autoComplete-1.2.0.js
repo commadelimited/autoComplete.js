@@ -22,9 +22,9 @@
         $.each(data, function(index, value) {
             // are we working with objects or strings?
             if ($.isPlainObject(value)) {
-                str.push('<li><a href="' + settings.link + value.value + '">' + value.label + '</a></li>');
+                str.push('<li><a href="' + settings.link + encodeURIComponent(value.value) + '">' + value.label + '</a></li>');
             } else {
-                str.push('<li><a href="' + settings.link + value + '">' + value + '</a></li>');
+                str.push('<li><a href="' + settings.link + encodeURIComponent(value) + '">' + value + '</a></li>');
             }
         });
         $(settings.target).html(str.join('')).listview("refresh");
