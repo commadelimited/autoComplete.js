@@ -30,16 +30,15 @@
         $(settings.target).html(str.join('')).listview("refresh");
     },
     handleInput = function(e) {
-        console.log("autocomplete: handling input for " + e.currentTarget.id);
         var $this = $(this);
         var settings = $this.jqmData("autocomplete");
         if (settings) {
             // get the current text of the input field
             var text = $this.val();
-            // if there's no length, then zero out the target
-            if (text.length < 1) {
+            // if we don't have enough text zero out the target
+            if (text.length <= settings.minLength) {
                 $(settings.target).html('').listview('refresh');
-            } else if (text.length > settings.minLength) {
+            } else {
                 // are we looking at a source array or remote data?
                 if ($.isArray(settings.source)) {
                     var data = settings.source.sort().filter(function(element) {
