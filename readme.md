@@ -54,6 +54,29 @@ Complex data allows the developer to specify which value goes where. AutoComplet
 
 Causing the resulting code to look like this: `<a href="testing.cfm?term=22">Maine</a>`
 
+## Methods
+
+### update - takes an object containing AutoComplete settings to update
+
+This method allows you to update AutoComplete settings for an element after the plugin has been initialized.
+
+	$("#searchField").autocomplete("update", {
+		source: [ "foo", "bar", "baz" ],
+		minLength: 3
+	});
+
+### clear
+
+This method will clear the "target" listview.  Useful if you need to empty the list in response to other events.
+
+	$("#searchField").autocomplete("clear");
+
+### destroy
+
+This method will clean up any bound events or data stored on the element.
+
+	$("#searchField").autocomplete("destroy");
+
 ## Contributing
 
 You are invited to contribute code and suggestions to this project. The more the merrier.
