@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" />
 	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
-	<script src="jqm.autoComplete-1.1.1.js"></script>
+	<script src="jqm.autoComplete-1.2.js"></script>
 </head>
 
 <body>
@@ -18,9 +18,10 @@
 			<h1>jQM Autocomplete</h1>
 			<div data-role="navbar">
 				<ul>
-					<a href="index.html" data-ajax="false">Simple Data</a>
-					<a href="complex.html" data-ajax="false">Complex Data</a>
-					<a href="array.html" data-ajax="false" class="ui-btn-active">Array Data</a>
+					<a href="index.html" data-ajax="false">Remote Array</a>
+					<a href="complex.html" data-ajax="false">Remote Object</a>
+					<a href="array.html" data-ajax="false" class="ui-btn-active">Local Array</a>
+					<a href="local_complex.html" data-ajax="false">Local Object</a>
 				</ul>
 			</div>
 		</div>
@@ -55,17 +56,18 @@
 	<script>
 
 		$("#mainPage").bind("pageshow", function(e) {
-			
+
 			var availableTags = ['24', 'about me', 'Adobe', 'AIR', 'AJAX', 'Android', 'Apple', 'Aptana', 'autoComplete', 'Bflex-BFusion', 'Blackberry Playbook', 'Blog Housekeeping', 'c25k', 'CFConversations', 'CFinNC', 'cfObjective', 'CFUnited', 'Clients', 'ColdFusion', 'ColdFusion Builder', 'Cooking and Recipes', 'CSS', 'D2WC', 'dribbbleCFC', 'Eclipse', 'Ember.js', 'Emile', 'ExtendScript', 'Family', 'Fireworks', 'Flash', 'Flex', 'foursquareCFC', 'From a former designer', 'Giveaways', 'Goba', 'Hardware', 'Illustrator', 'instagramCFC', 'iPhone', 'JavaScript', 'job openings', 'jobs', 'jQuery', 'jQuery Mobile', 'jQuery Mobile Boilerplate', 'kloutCFC', 'Lost', 'MAX', 'mobile', 'Movies and Reviews', 'ncfug', 'openExchangeRateCFC', 'Palm Pre', 'pastebinCFC', 'PhoneGap', 'Photoshop', 'picasaCFC', 'podcast', 'presentations', 'projects', 'reading', 'regular expressions', 'RIAUnleashed', 'Shrinkadoo', 'shrinkURL', 'SQL', 'swipeButton', 'technology', 'textCounter', 'the internet', 'ThemeRoller', 'tumblrCFC', 'Undelivrnator', 'video', 'Wallpapers', 'web development', 'Whiskerino', 'XCode and Interface Builder', 'XUIJS'];
 
 			$("#searchField").autocomplete({
 				target: $('#suggestions'),
 				source: availableTags,
 				link: 'testing.cfm?term=',
-				minLength: 0
+				minLength: 1
 			});
 		});
 	</script>
 
 </body>
 </html>
+

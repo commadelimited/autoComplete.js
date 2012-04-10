@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jQM Autocomplete</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" />
+	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
+	<script src="jqm.autoComplete.min-1.2.js"></script>
+</head>
+
+<body>
+
+	<div data-role="page" id="mainPage">
+
+		<div data-role="header">
+			<h1>jQM Autocomplete</h1>
+			<div data-role="navbar">
+				<ul>
+					<a href="index.html" data-ajax="false">Remote Array</a>
+					<a href="complex.html" data-ajax="false">Remote Object</a>
+					<a href="array.html" data-ajax="false">Local Array</a>
+					<a href="local_complex.html" data-ajax="false" class="ui-btn-active">Local Object</a>
+				</ul>
+			</div>
+		</div>
+
+		<div data-role="content">
+
+			<p>
+				In this example autoComplete returns an array of objects from a local variable, each with a label and a value key.
+			</p>
+
+			<pre>
+[
+    {
+        value: "22",
+        label: "Maine"
+    },
+    {
+        value: "23",
+        label: "Maryland"
+    }
+]
+			</pre>
+
+			<p>
+				<input type="text" id="searchField" placeholder="Categories">
+				<ul id="suggestions" data-role="listview" data-inset="true"></ul>
+			</p>
+
+			<p>
+				<a href="https://github.com/commadelimited/autoComplete.js" data-role="button">Download the code</a>
+			</p>
+
+		</div>
+
+	</div>
+
+	<script>
+
+		$("#mainPage").bind("pageshow", function(e) {
+
+     			 autocompleteData = $.parseJSON('[{"value":"1.0","label":"Alabama"},{"value":"2.0","label":"Alaska"},{"value":"3.0","label":"American Samoa"},{"value":"4.0","label":"Arizona"},{"value":"5.0","label":"Arkansas"},{"value":"6.0","label":"California"},{"value":"7.0","label":"Colorado"},{"value":"8.0","label":"Connecticut"},{"value":"9.0","label":"Delaware"},{"value":"10.0","label":"District of Columbia"},{"value":"11.0","label":"Florida"},{"value":"12.0","label":"Georgia"},{"value":"13.0","label":"Guam"},{"value":"14.0","label":"Hawaii"},{"value":"15.0","label":"Idaho"},{"value":"16.0","label":"Illinois"},{"value":"17.0","label":"Indiana"},{"value":"18.0","label":"Iowa"},{"value":"19.0","label":"Kansas"},{"value":"20.0","label":"Kentucky"},{"value":"21.0","label":"Louisiana"},{"value":"22.0","label":"Maine"},{"value":"23.0","label":"Maryland"},{"value":"24.0","label":"Massachusetts"},{"value":"25.0","label":"Michigan"},{"value":"26.0","label":"Minnesota"},{"value":"27.0","label":"Mississippi"},{"value":"28.0","label":"Missouri"},{"value":"29.0","label":"Montana"},{"value":"30.0","label":"Nebraska"},{"value":"31.0","label":"Nevada"},{"value":"32.0","label":"New Hampshire"},{"value":"33.0","label":"New Jersey"},{"value":"34.0","label":"New Mexico"},{"value":"35.0","label":"New York"},{"value":"36.0","label":"North Carolina"},{"value":"37.0","label":"North Dakota"},{"value":"38.0","label":"Northern Marianas Islands"},{"value":"39.0","label":"Ohio"},{"value":"40.0","label":"Oklahoma"},{"value":"41.0","label":"Oregon"},{"value":"42.0","label":"Pennsylvania"},{"value":"43.0","label":"Puerto Rico"},{"value":"44.0","label":"Rhode Island"},{"value":"45.0","label":"South Carolina"},{"value":"46.0","label":"South Dakota"},{"value":"47.0","label":"Tennessee"},{"value":"48.0","label":"Texas"},{"value":"49.0","label":"Utah"},{"value":"50.0","label":"Vermont"},{"value":"52.0","label":"Virgin Islands"},{"value":"51.0","label":"Virginia"},{"value":"53.0","label":"Washington"},{"value":"54.0","label":"West Virginia"},{"value":"55.0","label":"Wisconsin"},{"value":"56.0","label":"Wyoming"}]');
+
+			$("#searchField").autocomplete({
+				target: $('#suggestions'),
+				source: autocompleteData,
+				link: 'testing.cfm?term=',
+				minLength: 1
+			});
+		});
+	</script>
+
+</body>
+</html>
+
