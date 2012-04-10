@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" />
 	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
-	<script src="jqm.autoComplete-1.1.1.js"></script>
+	<script src="jqm.autoComplete-1.2.js"></script>
 </head>
 
 <body>
@@ -18,10 +18,10 @@
 			<h1>jQM Autocomplete</h1>
 			<div data-role="navbar">
 				<ul>
-					<a href="index.html" data-ajax="false">Simple Data</a>
-					<a href="complex.html" data-ajax="false" class="ui-btn-active">Complex Data</a>
-					<a href="array.html" data-ajax="false">Array Data</a>
-					<a href="local_complex.html" data-ajax="false">Local Complex Data</a>
+					<a href="index.html" data-ajax="false">Remote Array</a>
+					<a href="complex.html" data-ajax="false" class="ui-btn-active">Remote Object</a>
+					<a href="array.html" data-ajax="false">Local Array</a>
+					<a href="local_complex.html" data-ajax="false">Local Object</a>
 				</ul>
 			</div>
 		</div>
@@ -65,7 +65,7 @@
 				target: $('#suggestions'),
 				source: 'data.cfc?method=search&returnformat=json&data=complex',
 				link: 'testing.cfm?term=',
-				minLength: 0
+				minLength: 1
 			});
 		});
 	</script>
