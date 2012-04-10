@@ -1,11 +1,10 @@
 /*
 	Name: autoComplete
 	Author: Raymond Camden & Andy Matthews
-	Contributors: Jim Pease <https://github.com/jmpease>
 	Website: http://raymondcamden.com/
 		http://andyMatthews.net
 	Packed With: http://jsutility.pjoneil.net/
-	Version: 1.2.0
+	Version: 1.3
  */
 (function($) {
 
@@ -30,20 +29,24 @@
         $(settings.target).html(str.join('')).listview("refresh");
     },
     handleInput = function(e) {
-        var $this = $(this);
-        var settings = $this.jqmData("autocomplete");
+        var $this = $(this), text, data, settings = $this.jqmData("autocomplete");
         if (settings) {
             // get the current text of the input field
-            var text = $this.val();
+            text = $this.val();
             // if we don't have enough text zero out the target
             if (text.length <= settings.minLength) {
                 $(settings.target).html('').listview('refresh');
             } else {
                 // are we looking at a source array or remote data?
                 if ($.isArray(settings.source)) {
-                    var data = settings.source.sort().filter(function(element) {
-                        var re = new RegExp('^' + text, 'i');
-                        return re.test(element);
+                    data = settings.source.sort().filter(function(element) {
+                        var element_text, re = new RegExp('^' + text, 'i');
+                        if ($.isPlainObject(element)) {
+                            element_text = element.label;
+                        } else {
+                            element_text = element;
+                        }
+                        return re.test(element_text);
                     });
                     buildItems(data, settings);
                 } else {
