@@ -1,7 +1,7 @@
 /*
 	Name: autoComplete
 	Author: Raymond Camden & Andy Matthews
-	Contributors: Jim Pease
+	Contributors: Jim Pease <https://github.com/jmpease>
 	Website: http://raymondcamden.com/
 		http://andyMatthews.net
 	Packed With: http://jsutility.pjoneil.net/
