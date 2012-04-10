@@ -34,7 +34,7 @@
             // get the current text of the input field
             text = $this.val();
             // if we don't have enough text zero out the target
-            if (text.length <= settings.minLength) {
+            if (text.length < settings.minLength) {
                 $(settings.target).html('').listview('refresh');
             } else {
                 // are we looking at a source array or remote data?
