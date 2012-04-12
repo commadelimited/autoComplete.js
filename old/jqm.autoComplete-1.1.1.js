@@ -29,17 +29,12 @@
 				if(text.length < 1) {
 					$target.html('').listview('refresh');
 				} else if (text.length > o.minLength){
-
+					
 					// are we looking at a source array or remote data?
 					if ($.isArray(o.source)) {
 						var data = o.source.sort().filter(function(element, index, array){
 							var re = new RegExp('^' + text, 'i');
-							if ($.isPlainObject(element)) {
-							  element_text = element.label;
-							} else {
-							  element_text = element;
-							}
-							return re.test(element_text);
+							return re.test(element);
 						});
 						buildItems(data);
 					} else {
@@ -73,4 +68,3 @@
 	};
 
 })(jQuery);
-
