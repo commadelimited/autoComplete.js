@@ -76,6 +76,23 @@ This method will clear the "target" listview.  Useful if you need to empty the l
 This method will clean up any bound events or data stored on the element.
 
 	$("#searchField").autocomplete("destroy");
+	
+## Events
+
+### targetUpdated.autocomplete
+
+Event fired each time the target listview is updated.  A potential use is to bind to this event and scroll to the top of the page so that the list of completions is not completely hidden behind the soft/virtual keyboard.
+
+	$("#searchField").autocomplete({
+		target: $('#autocomplete'),
+		source: autocompletes
+	}).bind("targetUpdated.autocomplete", function(e) {
+		$.mobile.silentScroll($(e.currentTarget).offset().top);
+	});
+
+### targetCleared.autocomplete
+
+Event fired when the target listview is emptied (no completions to display).
 
 ## Contributing
 
