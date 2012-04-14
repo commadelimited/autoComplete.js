@@ -42,6 +42,10 @@
 							return re.test(element_text);
 						});
 						buildItems(data);
+					} else if ($.isFunction(o.source)) {
+						o.source(text, function(data) {
+							buildItems(data);
+						});
 					} else {
 						$.get(o.source, {term:text}, function(data) {
 							buildItems(data);
