@@ -19,7 +19,7 @@
 			<div data-role="navbar">
 				<ul>
 					<a href="index.html" data-ajax="false">Remote [ ]</a>
-					<a href="complex.html" data-ajax="false" class="ui-btn-active">Remote { }</a>
+					<a href="complex.html" data-ajax="false">Remote { }</a>
 					<a href="array.html" data-ajax="false">Local [ ]</a>
 					<a href="local_complex.html" data-ajax="false">Local { }</a>
 					<a href="callback.html" data-ajax="false">Callback</a>
@@ -30,46 +30,12 @@
 		<div data-role="content">
 
 			<p>
-				In this example autoComplete returns an array of objects from a remote url, each with a label and a value key.
-			</p>
-
-			<pre>
-[
-    {
-        value: "22",
-        label: "Maine"
-    },
-    {
-        value: "23",
-        label: "Maryland"
-    }
-]
-			</pre>
-
-			<p>
-				<input type="text" id="searchField" placeholder="US States">
-				<ul id="suggestions" data-role="listview" data-inset="true"></ul>
-			</p>
-
-			<p>
-				<a href="https://github.com/commadelimited/autoComplete.js" data-role="button">Download the code</a>
+				I'm the target page.
 			</p>
 
 		</div>
 
 	</div>
-
-	<script>
-		$("#mainPage").on("pageshow", function(e) {
-
-			$("#searchField").autocomplete({
-				target: $('#suggestions'),
-				source: 'data.cfc?method=search&returnformat=json&data=complex',
-				link: 'target.html?term=',
-				minLength: 1
-			});
-		});
-	</script>
 
 </body>
 </html>

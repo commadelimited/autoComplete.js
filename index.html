@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" />
 	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
-	<script src="jqm.autoComplete-1.2.js"></script>
+	<script src="jqm.autoComplete-1.3.js"></script>
 </head>
 
 <body>
@@ -18,10 +18,11 @@
 			<h1>jQM Autocomplete</h1>
 			<div data-role="navbar">
 				<ul>
-					<a href="index.html" data-ajax="false" class="ui-btn-active">Remote Array</a>
-					<a href="complex.html" data-ajax="false">Remote Object</a>
-					<a href="array.html" data-ajax="false">Local Array</a>
-					<a href="local_complex.html" data-ajax="false">Local Object</a>
+					<a href="index.html" data-ajax="false" class="ui-btn-active">Remote [ ]</a>
+					<a href="complex.html" data-ajax="false">Remote { }</a>
+					<a href="array.html" data-ajax="false">Local [ ]</a>
+					<a href="local_complex.html" data-ajax="false">Local { }</a>
+					<a href="callback.html" data-ajax="false">Callback</a>
 				</ul>
 			</div>
 		</div>
@@ -59,7 +60,7 @@
 			$("#searchField").autocomplete({
 				target: $('#suggestions'),
 				source: 'data.cfc?method=search&returnformat=json&data=simple',
-				link: 'testing.cfm?term=',
+				link: 'target.html?term=',
 				minLength: 1
 			});
 

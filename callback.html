@@ -20,9 +20,9 @@
 				<ul>
 					<a href="index.html" data-ajax="false">Remote [ ]</a>
 					<a href="complex.html" data-ajax="false">Remote { }</a>
-					<a href="array.html" data-ajax="false" class="ui-btn-active">Local [ ]</a>
+					<a href="array.html" data-ajax="false">Local [ ]</a>
 					<a href="local_complex.html" data-ajax="false">Local { }</a>
-					<a href="callback.html" data-ajax="false">Callback</a>
+					<a href="callback.html" data-ajax="false" class="ui-btn-active">Callback</a>
 				</ul>
 			</div>
 		</div>
@@ -63,6 +63,11 @@
 			$("#searchField").autocomplete({
 				target: $('#suggestions'),
 				source: availableTags,
+				callback: function(e) {
+					var $a = $(e.currentTarget);
+					$('#searchField').val($a.text());
+					$("#searchField").autocomplete('clear');
+				},
 				link: 'target.html?term=',
 				minLength: 1
 			});
