@@ -4,6 +4,9 @@ AutoComplete is a jQuery Mobile plugin which allows developers to add autoComple
 
 Based on the [blog entry ](http://www.raymondcamden.com/index.cfm/2012/3/27/Example-of-Autocomplete-in-jQuery-Mobile) of Raymond Camden ([@cfjedimaster](https://github.com/cfjedimaster)).
 
+![Data Access](http://andymatthews.net/code/autocomplete/data.jpg)
+![Callback Function](http://andymatthews.net/code/autocomplete/callback.jpg)
+
 ## Example
 View a simple [demo of autoComplete](http://andymatthews.net/code/autocomplete/)
 
