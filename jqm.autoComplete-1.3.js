@@ -74,6 +74,10 @@
 						return re.test(element_text);
 					});
 					buildItems($this, data, settings);
+				}  else if ($.isFunction(settings.source)) {
+					settings.source (text, function(data) {
+						buildItems($this, data, settings);
+					});
 				} else {
 					$.get(settings.source, { term: text }, function(data) {
 						buildItems($this, data, settings);
