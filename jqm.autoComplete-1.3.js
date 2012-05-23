@@ -85,7 +85,7 @@
 	methods = {
 			init: function(options) {
 				this.jqmData("autocomplete", $.extend({}, defaults, options));
-				return this.unbind("input.autocomplete").bind("input.autocomplete", handleInput);
+				return this.unbind("keyup.autocomplete").bind("keyup.autocomplete", handleInput);
 			},
 			// Allow dynamic update of source and link
 			update: function(options) {
