@@ -3,7 +3,7 @@
 	Author: Raymond Camden & Andy Matthews
 	Contributors: Jim Pease (@jmpease)
 	Website: http://raymondcamden.com/
-			 http://andyMatthews.net
+			http://andyMatthews.net
 	Packed With: http://jsutility.pjoneil.net/
 	Version: 1.3
  */
@@ -32,7 +32,7 @@
 		$(settings.target).html(str.join('')).listview("refresh");
 
 		// is there a callback?
-		if (settings.callback != null && $.isFunction(settings.callback)) {
+		if (settings.callback !== null && $.isFunction(settings.callback)) {
 			attachCallback(settings);
 		}
 
@@ -83,36 +83,36 @@
 		}
 	},
 	methods = {
-			init: function(options) {
-				this.jqmData("autocomplete", $.extend({}, defaults, options));
-				return this.unbind("input.autocomplete").bind("input.autocomplete", handleInput);
-			},
-			// Allow dynamic update of source and link
-			update: function(options) {
-				var settings = this.jqmData("autocomplete");
-				if (settings) {
-					this.jqmData("autocomplete", $.extend(settings, options));
-				}
-				return this;
-			},
-			// Method to forcibly clear our target
-			clear: function() {
-				var settings = this.jqmData("autocomplete");
-				if (settings) {
-					clearTarget(this, $(settings.target));
-				}
-				return this;
-			},
-			// Method to destroy (cleanup) plugin
-			destroy: function() {
-				var settings = this.jqmData("autocomplete");
-				if (settings) {
-					clearTarget(this, $(settings.target));
-					this.jqmRemoveData("autocomplete");
-					this.unbind(".autocomplete");
-				}
-				return this;
+		init: function(options) {
+			this.jqmData("autocomplete", $.extend({}, defaults, options));
+			return this.unbind("input.autocomplete").bind("input.autocomplete", handleInput);
+		},
+		// Allow dynamic update of source and link
+		update: function(options) {
+			var settings = this.jqmData("autocomplete");
+			if (settings) {
+				this.jqmData("autocomplete", $.extend(settings, options));
 			}
+			return this;
+		},
+		// Method to forcibly clear our target
+		clear: function() {
+			var settings = this.jqmData("autocomplete");
+			if (settings) {
+				clearTarget(this, $(settings.target));
+			}
+			return this;
+		},
+		// Method to destroy (cleanup) plugin
+		destroy: function() {
+			var settings = this.jqmData("autocomplete");
+			if (settings) {
+				clearTarget(this, $(settings.target));
+				this.jqmRemoveData("autocomplete");
+				this.unbind(".autocomplete");
+			}
+			return this;
+		}
 	};
 
 	$.fn.autocomplete = function(method) {
