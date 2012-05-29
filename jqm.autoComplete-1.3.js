@@ -22,12 +22,17 @@
 	buildItems = function($this, data, settings) {
 		var str = [];
 		$.each(data, function(index, value) {
+			var urlParam, text;
 			// are we working with objects or strings?
 			if ($.isPlainObject(value)) {
-				str.push('<li><a href="' + settings.link + encodeURIComponent(value.value) + '" data-transition="' + settings.transition + '">' + value.label + '</a></li>');
+				urlParam = encodeURIComponent(value.value);
+				text = value.label;
 			} else {
-				str.push('<li><a href="' + settings.link + encodeURIComponent(value) + '" data-transition="' + settings.transition + '">' + value + '</a></li>');
+				urlParam = encodeURIComponent(value);
+				text = value;
 			}
+			urlParam = urlParam.replace('\'', '%27').replace('(', '%28').replace(')', '%29');
+			str.push('<li><a href="' + settings.link + urlParam + '" data-transition="' + settings.transition + '">' + text + '</a></li>');
 		});
 		$(settings.target).html(str.join('')).listview("refresh");
 
