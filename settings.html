@@ -29,18 +29,18 @@
 			<div data-role="navbar">
 				<ul>
 					<li><a href="local_complex.html" data-ajax="false">Local { }</a></li>
-					<li><a href="callback.html" data-ajax="false" class="ui-btn-active">Callback</a></li>
-					<li><a href="settings.html" data-ajax="false">Settings</a></li>
+					<li><a href="callback.html" data-ajax="false">Callback</a></li>
+					<li><a href="settings.html" data-ajax="false" class="ui-btn-active">Settings</a></li>
 				</ul>
 			</div>
 		</div>
 
 		<div data-role="content">
 
-			<h3>Callback Function</h3>
+			<h3>Settings</h3>
 
 			<p>
-				In this example autoComplete uses a local array comprised of strings.
+				<strong>showRightArrow</strong> - In this example autoComplete does not display the right arrow icon in the results list by setting <em>showRightArrow</em> to false.
 			</p>
 
 			<pre>
@@ -54,6 +54,23 @@
 			<p>
 				<input type="text" id="searchField" placeholder="Categories">
 				<ul id="suggestions" data-role="listview" data-inset="true"></ul>
+			</p>
+			<hr />
+			<p>
+				<strong>itemLimit</strong> - In this example autoComplete limits the results returned to 4 by setting <em>itemLimit</em> to 4
+			</p>
+
+			<pre>
+[
+    "autoComplete",
+    "ColdFusion",
+    "jQuery Mobile"
+];
+			</pre>
+
+			<p>
+				<input type="text" id="searchFieldLimit" placeholder="Categories">
+				<ul id="suggestionsLimit" data-role="listview" data-inset="true"></ul>
 			</p>
 
 			<p>
@@ -73,13 +90,17 @@
 			$("#searchField").autocomplete({
 				target: $('#suggestions'),
 				source: availableTags,
-				callback: function(e) {
-					var $a = $(e.currentTarget);
-					$('#searchField').val($a.text());
-					$("#searchField").autocomplete('clear');
-				},
 				link: 'target.html?term=',
-				minLength: 1
+				minLength: 1,
+				showRightArrow: false
+			});
+			
+			$("#searchFieldLimit").autocomplete({
+				target: $('#suggestionsLimit'),
+				source: availableTags,
+				link: 'target.html?term=',
+				minLength: 1,
+				itemLimit: 4
 			});
 		});
 	</script>
