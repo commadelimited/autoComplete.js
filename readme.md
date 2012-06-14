@@ -12,7 +12,7 @@ View a simple [demo of autoComplete](http://andymatthews.net/code/autocomplete/)
 
 ## Quick start
 
-Clone the git repo - `git clone git@github.com:commadelimited/autoComplete.js.git` - or [download it](https://github.com/commadelimited/autoComplete.js/zipball/master)
+Clone the git repo - `git clone https://github.com/commadelimited/autoComplete.js.git` - or [download it](https://github.com/commadelimited/autoComplete.js/zipball/master)
 
 ## Usage & Documentation
 
