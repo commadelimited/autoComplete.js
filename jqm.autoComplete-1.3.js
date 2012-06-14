@@ -40,7 +40,11 @@
 			urlParam = urlParam.replace('\'', '%27').replace('(', '%28').replace(')', '%29');
 			str.push('<li' + (settings.showRightArrow ? '' : ' data-icon="false"') + '><a href="' + settings.link + urlParam + '" data-transition="' + settings.transition + '">' + text + '</a></li>');
 		});
-		$(settings.target).html(str.join('')).listview("refresh");
+		var target = $(settings.target).html(str.join('')).listview("refresh");
+	    	// if not showing the right arrow, remove the class ui-btn-icon-right from the li's as this adds unclickable padding on the right of the li
+	    	if (!settings.showRightArrow) {
+	        	target.find('li.ui-li').removeClass('ui-btn-icon-right');
+	    	}
 
 		// is there a callback?
 		if (settings.callback !== null && $.isFunction(settings.callback)) {
