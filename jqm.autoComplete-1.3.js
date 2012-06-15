@@ -92,7 +92,7 @@
 										openXHR[id].abort();
 									} else {
 										// Set a loading indicator as a temporary stop-gap to the response time issue
-										settings.target.html('<li data-icon="load"><a href="#">Searching...</a></li>').listview('refresh');
+										settings.target.html('<li data-icon="none"><a href="#">Searching...</a></li>').listview('refresh');
 										settings.target.closest("fieldset").addClass("ui-search-active");
 									}
 									// Set this request to the open XML HTTP Request list for this ID
