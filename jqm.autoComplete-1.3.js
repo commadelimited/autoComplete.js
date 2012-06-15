@@ -82,10 +82,10 @@
 				} 
 				// Accept a function as source.
 				// Function needs to call the callback, which is the first parameter.
-				// source:function(callback) { mydata = [1,2]; callback(mydata); }
+				// source:function(text,callback) { mydata = [1,2]; callback(mydata); }
 				else if (typeof settings.source === 'function') {
 					
-					settings.source(function(data){
+					settings.source(text,function(data){
 						buildItems($this, data, settings);	
 					});
 
