@@ -96,28 +96,28 @@
 						url: settings.source,
 						data: { term: text },
 						beforeSend: function(jqXHR) {
-								if (settings.cancelRequests) {
-									if (openXHR[id]) {
-										// If we have an open XML HTTP Request for this autoComplete ID, abort it
-										openXHR[id].abort();
-									} else {
-										// Set a loading indicator as a temporary stop-gap to the response time issue
-										settings.target.html('<li data-icon="none"><a href="#">Searching...</a></li>').listview('refresh');
-										settings.target.closest("fieldset").addClass("ui-search-active");
-									}
-									// Set this request to the open XML HTTP Request list for this ID
-									openXHR[id] = jqXHR;
+							if (settings.cancelRequests) {
+								if (openXHR[id]) {
+									// If we have an open XML HTTP Request for this autoComplete ID, abort it
+									openXHR[id].abort();
+								} else {
+									// Set a loading indicator as a temporary stop-gap to the response time issue
+									settings.target.html('<li data-icon="none"><a href="#">Searching...</a></li>').listview('refresh');
+									settings.target.closest("fieldset").addClass("ui-search-active");
 								}
-							},
+								// Set this request to the open XML HTTP Request list for this ID
+								openXHR[id] = jqXHR;
+							}
+						},
 						success: function(data) {
-								buildItems($this, data, settings);
-							},
+							buildItems($this, data, settings);
+						},
 						complete: function (jqXHR, textStatus) {
-								// Clear this ID's open XML HTTP Request from the list
-								if (settings.cancelRequests) {
-									openXHR[id] = null;
-								}
-							},
+							// Clear this ID's open XML HTTP Request from the list
+							if (settings.cancelRequests) {
+								openXHR[id] = null;
+							}
+						},
 						dataType: 'json'
 					});
 				}
@@ -125,36 +125,36 @@
 		}
 	},
 	methods = {
-			init: function(options) {
-				this.jqmData("autocomplete", $.extend({}, defaults, options));
-				return this.unbind("keyup.autocomplete").bind("keyup.autocomplete", handleInput);
-			},
-			// Allow dynamic update of source and link
-			update: function(options) {
-				var settings = this.jqmData("autocomplete");
-				if (settings) {
-					this.jqmData("autocomplete", $.extend(settings, options));
-				}
-				return this;
-			},
-			// Method to forcibly clear our target
-			clear: function() {
-				var settings = this.jqmData("autocomplete");
-				if (settings) {
-					clearTarget(this, $(settings.target));
-				}
-				return this;
-			},
-			// Method to destroy (cleanup) plugin
-			destroy: function() {
-				var settings = this.jqmData("autocomplete");
-				if (settings) {
-					clearTarget(this, $(settings.target));
-					this.jqmRemoveData("autocomplete");
-					this.unbind(".autocomplete");
-				}
-				return this;
+		init: function(options) {
+			this.jqmData("autocomplete", $.extend({}, defaults, options));
+			return this.unbind("keyup.autocomplete").bind("keyup.autocomplete", handleInput);
+		},
+		// Allow dynamic update of source and link
+		update: function(options) {
+			var settings = this.jqmData("autocomplete");
+			if (settings) {
+				this.jqmData("autocomplete", $.extend(settings, options));
 			}
+			return this;
+		},
+		// Method to forcibly clear our target
+		clear: function() {
+			var settings = this.jqmData("autocomplete");
+			if (settings) {
+				clearTarget(this, $(settings.target));
+			}
+			return this;
+		},
+		// Method to destroy (cleanup) plugin
+		destroy: function() {
+			var settings = this.jqmData("autocomplete");
+			if (settings) {
+				clearTarget(this, $(settings.target));
+				this.jqmRemoveData("autocomplete");
+				this.unbind(".autocomplete");
+			}
+			return this;
+		}
 	};
 
 	$.fn.autocomplete = function(method) {

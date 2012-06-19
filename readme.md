@@ -17,12 +17,14 @@ Clone the git repo - `git clone https://github.com/commadelimited/autoComplete.j
 ## Usage & Documentation
 
 	$("#searchField").autocomplete({
+		method: 'GET', // allows POST as well
+		icon: 'arrow-r', // option to specify icon
 		target: $('#suggestions'), // the listview to receive results
 		source: 'data.cfc?method=search&returnformat=json', // URL return JSON data
+		callback: fn(){}, // optional callback function fires upon result selection
 		link: 'target.html?term=', // link to be attached to each result
 		minLength: 0 // minimum length of search string
-		transition: 'fade',// page transition, default is fade
-		callback: fn(){} // optional callback function fires upon result selection
+		transition: 'fade'// page transition, default is fade
 	});
 
 AutoComplete can access local arrays, or remote data sources.
