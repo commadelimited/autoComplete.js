@@ -9,9 +9,12 @@
  */
 (function($) {
 
-	"use strict";
+ 	"use strict";
 
 	var defaults = {
+		method: 'GET',
+		icon: 'arrow-r',
+		cancelRequests: false,
 		target: $(),
 		source: null,
 		callback: null,
@@ -19,16 +22,19 @@
 		minLength: 0,
 		transition: 'fade'
 	},
+	openXHR = {},
 	buildItems = function($this, data, settings) {
 		var str = [];
-		$.each(data, function(index, value) {
-			// are we working with objects or strings?
-			if ($.isPlainObject(value)) {
-				str.push('<li><a href="' + settings.link + encodeURIComponent(value.value) + '" data-transition="' + settings.transition + '">' + value.label + '</a></li>');
-			} else {
-				str.push('<li><a href="' + settings.link + encodeURIComponent(value) + '" data-transition="' + settings.transition + '">' + value + '</a></li>');
-			}
-		});
+		if (data) {
+			$.each(data, function(index, value) {
+				// are we working with objects or strings?
+				if ($.isPlainObject(value)) {
+					str.push('<li data-icon=' + settings.icon + '><a href="' + settings.link + encodeURIComponent(value.value) + '" data-transition="' + settings.transition + '">' + value.label + '</a></li>');
+				} else {
+					str.push('<li data-icon=' + settings.icon + '><a href="' + settings.link + encodeURIComponent(value) + '" data-transition="' + settings.transition + '">' + value + '</a></li>');
+				}
+			});
+		}
 		$(settings.target).html(str.join('')).listview("refresh");
 
 		// is there a callback?
@@ -50,11 +56,11 @@
 		});
 	},
 	clearTarget = function($this, $target) {
-		$target.html('').listview('refresh');
+		$target.html('').listview('refresh').closest("fieldset").removeClass("ui-search-active");
 		$this.trigger("targetCleared.autocomplete");
 	},
 	handleInput = function(e) {
-		var $this = $(this), text, data, settings = $this.jqmData("autocomplete");
+		var $this = $(this), id = $this.attr("id"), text, data, settings = $this.jqmData("autocomplete");
 		if (settings) {
 			// get the current text of the input field
 			text = $this.val();
@@ -75,9 +81,35 @@
 					});
 					buildItems($this, data, settings);
 				} else {
-					$.get(settings.source, { term: text }, function(data) {
-						buildItems($this, data, settings);
-					},"json");
+					$.ajax({
+						type: settings.method,
+						url: settings.source,
+						data: { term: text },
+						beforeSend: function(jqXHR) {
+								if (settings.cancelRequests) {
+									if (openXHR[id]) {
+										// If we have an open XML HTTP Request for this autoComplete ID, abort it
+										openXHR[id].abort();
+									} else {
+										// Set a loading indicator as a temporary stop-gap to the response time issue
+										settings.target.html('<li data-icon="none"><a href="#">Searching...</a></li>').listview('refresh');
+										settings.target.closest("fieldset").addClass("ui-search-active");
+									}
+									// Set this request to the open XML HTTP Request list for this ID
+									openXHR[id] = jqXHR;
+								}
+							},
+						success: function(data) {
+								buildItems($this, data, settings);
+							},
+						complete: function (jqXHR, textStatus) {
+								// Clear this ID's open XML HTTP Request from the list
+								if (settings.cancelRequests) {
+									openXHR[id] = null;
+								}
+							},
+						dataType: 'json'
+					});
 				}
 			}
 		}
