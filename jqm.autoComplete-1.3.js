@@ -3,7 +3,7 @@
 	Author: Raymond Camden & Andy Matthews
 	Contributors: Jim Pease (@jmpease)
 	Website: http://raymondcamden.com/
-			http://andyMatthews.net
+			 http://andyMatthews.net
 	Packed With: http://jsutility.pjoneil.net/
 	Version: 1.3
  */
@@ -22,22 +22,17 @@
 	buildItems = function($this, data, settings) {
 		var str = [];
 		$.each(data, function(index, value) {
-			var urlParam, text;
 			// are we working with objects or strings?
 			if ($.isPlainObject(value)) {
-				urlParam = encodeURIComponent(value.value);
-				text = value.label;
+				str.push('<li><a href="' + settings.link + encodeURIComponent(value.value) + '" data-transition="' + settings.transition + '">' + value.label + '</a></li>');
 			} else {
-				urlParam = encodeURIComponent(value);
-				text = value;
+				str.push('<li><a href="' + settings.link + encodeURIComponent(value) + '" data-transition="' + settings.transition + '">' + value + '</a></li>');
 			}
-			urlParam = urlParam.replace('\'', '%27').replace('(', '%28').replace(')', '%29');
-			str.push('<li><a href="' + settings.link + urlParam + '" data-transition="' + settings.transition + '">' + text + '</a></li>');
 		});
 		$(settings.target).html(str.join('')).listview("refresh");
 
 		// is there a callback?
-		if (settings.callback !== null && $.isFunction(settings.callback)) {
+		if (settings.callback != null && $.isFunction(settings.callback)) {
 			attachCallback(settings);
 		}
 
@@ -88,36 +83,36 @@
 		}
 	},
 	methods = {
-		init: function(options) {
-			this.jqmData("autocomplete", $.extend({}, defaults, options));
-			return this.unbind("input.autocomplete").bind("input.autocomplete", handleInput);
-		},
-		// Allow dynamic update of source and link
-		update: function(options) {
-			var settings = this.jqmData("autocomplete");
-			if (settings) {
-				this.jqmData("autocomplete", $.extend(settings, options));
+			init: function(options) {
+				this.jqmData("autocomplete", $.extend({}, defaults, options));
+				return this.unbind("keyup.autocomplete").bind("keyup.autocomplete", handleInput);
+			},
+			// Allow dynamic update of source and link
+			update: function(options) {
+				var settings = this.jqmData("autocomplete");
+				if (settings) {
+					this.jqmData("autocomplete", $.extend(settings, options));
+				}
+				return this;
+			},
+			// Method to forcibly clear our target
+			clear: function() {
+				var settings = this.jqmData("autocomplete");
+				if (settings) {
+					clearTarget(this, $(settings.target));
+				}
+				return this;
+			},
+			// Method to destroy (cleanup) plugin
+			destroy: function() {
+				var settings = this.jqmData("autocomplete");
+				if (settings) {
+					clearTarget(this, $(settings.target));
+					this.jqmRemoveData("autocomplete");
+					this.unbind(".autocomplete");
+				}
+				return this;
 			}
-			return this;
-		},
-		// Method to forcibly clear our target
-		clear: function() {
-			var settings = this.jqmData("autocomplete");
-			if (settings) {
-				clearTarget(this, $(settings.target));
-			}
-			return this;
-		},
-		// Method to destroy (cleanup) plugin
-		destroy: function() {
-			var settings = this.jqmData("autocomplete");
-			if (settings) {
-				clearTarget(this, $(settings.target));
-				this.jqmRemoveData("autocomplete");
-				this.unbind(".autocomplete");
-			}
-			return this;
-		}
 	};
 
 	$.fn.autocomplete = function(method) {
