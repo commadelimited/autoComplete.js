@@ -80,6 +80,16 @@
 						return re.test(element_text);
 					});
 					buildItems($this, data, settings);
+				} 
+				// Accept a function as source.
+				// Function needs to call the callback, which is the first parameter.
+				// source:function(text,callback) { mydata = [1,2]; callback(mydata); }
+				else if (typeof settings.source === 'function') {
+					
+					settings.source(text,function(data){
+						buildItems($this, data, settings);	
+					});
+
 				} else {
 					$.ajax({
 						type: settings.method,
