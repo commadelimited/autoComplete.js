@@ -20,7 +20,8 @@
 		callback: null,
 		link: null,
 		minLength: 0,
-		transition: 'fade'
+		transition: 'fade',
+		matchFromStart: true
 	},
 	openXHR = {},
 	buildItems = function($this, data, settings) {
@@ -71,7 +72,14 @@
 				// are we looking at a source array or remote data?
 				if ($.isArray(settings.source)) {
 					data = settings.source.sort().filter(function(element) {
-						var element_text, re = new RegExp('^' + text, 'i');
+						// matching from start, or anywhere in the string?
+						if (settings.matchFromStart) {
+							// from start
+							var element_text, re = new RegExp('^' + text, 'i');
+						} else {
+							// anywhere
+							var element_text, re = new RegExp(text, 'i');
+						}
 						if ($.isPlainObject(element)) {
 							element_text = element.label;
 						} else {

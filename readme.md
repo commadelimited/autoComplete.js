@@ -24,10 +24,11 @@ Clone the git repo - `git clone https://github.com/commadelimited/autoComplete.j
 		callback: fn(){}, // optional callback function fires upon result selection
 		link: 'target.html?term=', // link to be attached to each result
 		minLength: 0 // minimum length of search string
-		transition: 'fade'// page transition, default is fade
+		transition: 'fade',// page transition, default is fade
+		matchFromStart: true // search from start, or anywhere in the string
 	});
 
-AutoComplete can access local arrays, or remote data sources.
+AutoComplete can access local arrays or remote data sources.
 
 AutoComplete.js can read data in one of two ways: simple or complex. Simple data should be returned from the source in the following format:
 

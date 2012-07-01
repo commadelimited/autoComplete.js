@@ -35,7 +35,7 @@
 			<h3>Local Simple Data</h3>
 
 			<p>
-				In this example autoComplete uses a local array comprised of strings.
+				In this example autoComplete uses a local array comprised of strings. This also shows an example of the matchFromStart property set to false.
 			</p>
 
 			<pre>
@@ -69,7 +69,8 @@
 				target: $('#suggestions'),
 				source: availableTags,
 				link: 'target.html?term=',
-				minLength: 1
+				minLength: 1,
+				matchFromStart: false
 			});
 		});
 	</script>
