@@ -130,4 +130,4 @@ You are invited to contribute code and suggestions to this project. The more the
 
 ### Custom bits:
 
-Public domain
+MIT/GPL license
