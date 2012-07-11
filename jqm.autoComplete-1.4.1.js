@@ -3,13 +3,13 @@
 	Author: Raymond Camden & Andy Matthews
 	Contributors: Jim Pease (@jmpease)
 	Website: http://raymondcamden.com/
-			 http://andyMatthews.net
+			http://andyMatthews.net
 	Packed With: http://jsutility.pjoneil.net/
 	Version: 1.4
- */
+*/
 (function($) {
 
- 	"use strict";
+	"use strict";
 
 	var defaults = {
 		method: 'GET',
@@ -39,7 +39,7 @@
 		$(settings.target).html(str.join('')).listview("refresh");
 
 		// is there a callback?
-		if (settings.callback != null && $.isFunction(settings.callback)) {
+		if (settings.callback !== null && $.isFunction(settings.callback)) {
 			attachCallback(settings);
 		}
 
@@ -61,7 +61,13 @@
 		$this.trigger("targetCleared.autocomplete");
 	},
 	handleInput = function(e) {
-		var $this = $(this), id = $this.attr("id"), text, data, settings = $this.jqmData("autocomplete");
+		var $this = $(this),
+			id = $this.attr("id"),
+			text,
+			data,
+			settings = $this.jqmData("autocomplete"),
+			element_text,
+			re;
 		if (settings) {
 			// get the current text of the input field
 			text = $this.val();
@@ -75,10 +81,10 @@
 						// matching from start, or anywhere in the string?
 						if (settings.matchFromStart) {
 							// from start
-							var element_text, re = new RegExp('^' + text, 'i');
+							element_text, re = new RegExp('^' + text, 'i');
 						} else {
 							// anywhere
-							var element_text, re = new RegExp(text, 'i');
+							element_text, re = new RegExp(text, 'i');
 						}
 						if ($.isPlainObject(element)) {
 							element_text = element.label;
@@ -134,8 +140,15 @@
 	},
 	methods = {
 		init: function(options) {
-			this.jqmData("autocomplete", $.extend({}, defaults, options));
-			return this.unbind("keyup.autocomplete").bind("keyup.autocomplete", handleInput);
+			var el = this;
+			el.jqmData("autocomplete", $.extend({}, defaults, options));
+			var settings = el.jqmData("autocomplete");
+			return el.unbind("keyup.autocomplete")
+						.bind("keyup.autocomplete", handleInput)
+						.next('.ui-input-clear')
+						.bind('click', function(e){
+							clearTarget(el, $(settings.target));
+						});
 		},
 		// Allow dynamic update of source and link
 		update: function(options) {

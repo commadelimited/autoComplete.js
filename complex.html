@@ -7,10 +7,12 @@
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+	<link rel="stylesheet" href="styles.css" />
 
 	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
 	<script src="jqm.autoComplete-1.4.1.js"></script>
+	<script src="code.js"></script>
 </head>
 
 <body>
@@ -19,14 +21,15 @@
 
 		<div data-role="header">
 			<h1>jQM Autocomplete</h1>
-			<div data-role="navbar">
-				<ul>
-					<a href="index.html" data-ajax="false">Remote [ ]</a>
-					<a href="complex.html" data-ajax="false" class="ui-btn-active">Remote { }</a>
-					<a href="array.html" data-ajax="false">Local [ ]</a>
-					<a href="local_complex.html" data-ajax="false">Local { }</a>
-					<a href="callback.html" data-ajax="false">Callback</a>
-				</ul>
+			<div>
+				<select id="examples" data-mini="true" data-native-menu="false">
+					<option value="index.html">Remote Array</option>
+					<option value="complex.html" selected="true">Remote Object</option>
+					<option value="array.html">Local Array</option>
+					<option value="local_complex.html">Local Object</option>
+					<option value="callback.html">Callback</option>
+					code.js
+				</select>
 			</div>
 		</div>
 
