@@ -5,7 +5,7 @@
 	Website: http://raymondcamden.com/
 			http://andyMatthews.net
 	Packed With: http://jsutility.pjoneil.net/
-	Version: 1.4
+	Version: 1.4.2
 */
 (function($) {
 
