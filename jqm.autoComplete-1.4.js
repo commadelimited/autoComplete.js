@@ -13,6 +13,7 @@
 
 	var defaults = {
 		method: 'GET',
+		contentType: 'application/x-www-form-urlencoded',
 		icon: 'arrow-r',
 		cancelRequests: false,
 		target: $(),
@@ -20,7 +21,8 @@
 		callback: null,
 		link: null,
 		minLength: 0,
-		transition: 'fade'
+		transition: 'fade',
+		encodeValue: true
 	},
 	openXHR = {},
 	buildItems = function($this, data, settings) {
@@ -29,9 +31,11 @@
 			$.each(data, function(index, value) {
 				// are we working with objects or strings?
 				if ($.isPlainObject(value)) {
-					str.push('<li data-icon=' + settings.icon + '><a href="' + settings.link + encodeURIComponent(value.value) + '" data-transition="' + settings.transition + '">' + value.label + '</a></li>');
-				} else {
-					str.push('<li data-icon=' + settings.icon + '><a href="' + settings.link + encodeURIComponent(value) + '" data-transition="' + settings.transition + '">' + value + '</a></li>');
+					if (settings.encodeValue) usevalue = encodeURIComponent(value.value); else usevalue = value.value;
+	                		str.push('<li data-icon=' + settings.icon + '><a href="' + settings.link +  usevalue + '" data-transition="' + settings.transition + '">' + value.label + '</a></li>');
+	                	} else {
+                    			if (settings.encodeValue) usevalue = encodeURIComponent(value); else usevalue = value;
+	                		str.push('<li data-icon=' + settings.icon + '><a href="' + settings.link + value + '" data-transition="' + settings.transition + '">' + value + '</a></li>');					str.push('<li data-icon=' + settings.icon + '><a href="' + settings.link + encodeURIComponent(value) + '" data-transition="' + settings.transition + '">' + value + '</a></li>');
 				}
 			});
 		}
@@ -94,7 +98,8 @@
 					$.ajax({
 						type: settings.method,
 						url: settings.source,
-						data: { term: text },
+						data: JSON.stringify({term: text }),
+                        			contentType: settings.contentType,
 						beforeSend: function(jqXHR) {
 							if (settings.cancelRequests) {
 								if (openXHR[id]) {
@@ -110,7 +115,7 @@
 							}
 						},
 						success: function(data) {
-							buildItems($this, data, settings);
+							if (data.d) buildItems($this, data.d, settings); else buildItems($this, data, settings);
 						},
 						complete: function (jqXHR, textStatus) {
 							// Clear this ID's open XML HTTP Request from the list
