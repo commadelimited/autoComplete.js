@@ -21,7 +21,9 @@
 		link: null,
 		minLength: 0,
 		transition: 'fade',
-		matchFromStart: true
+		matchFromStart: true,
+        termParam : 'term',
+        loadingHtml : '<li data-icon="none"><a href="#">Searching...</a></li>'
 	},
 	openXHR = {},
 	buildItems = function($this, data, settings) {
@@ -105,23 +107,25 @@
 					});
 
 				} else {
-					$.ajax({
+                    var ajax = {
 						type: settings.method,
-						url: settings.source,
-						data: { term: text },
+                        data: {},
+                        dataType: 'json',
 						beforeSend: function(jqXHR) {
 							if (settings.cancelRequests) {
 								if (openXHR[id]) {
 									// If we have an open XML HTTP Request for this autoComplete ID, abort it
 									openXHR[id].abort();
 								} else {
-									// Set a loading indicator as a temporary stop-gap to the response time issue
-									settings.target.html('<li data-icon="none"><a href="#">Searching...</a></li>').listview('refresh');
-									settings.target.closest("fieldset").addClass("ui-search-active");
 								}
 								// Set this request to the open XML HTTP Request list for this ID
 								openXHR[id] = jqXHR;
 							}
+                            if (settings.loadingHtml) {
+                                // Set a loading indicator as a temporary stop-gap to the response time issue
+                                settings.target.html(settings.loadingHtml).listview('refresh');
+                                settings.target.closest("fieldset").addClass("ui-search-active");
+                            }
 						},
 						success: function(data) {
 							buildItems($this, data, settings);
@@ -131,9 +135,20 @@
 							if (settings.cancelRequests) {
 								openXHR[id] = null;
 							}
-						},
-						dataType: 'json'
-					});
+						}
+                    };
+                    if ($.isPlainObject(settings.source)) {
+                        if (settings.source.callback) {
+                            settings.source.callback(text, ajax);
+                        }
+                        for (var k in settings.source) {
+                            if (k != 'callback') ajax[k] = settings.source[k];
+                        }
+                    } else {
+                        ajax.url = settings.source;
+                    }
+					if (settings.termParam) ajax.data[settings.termParam] = text;
+					$.ajax(ajax);
 				}
 			}
 		}
