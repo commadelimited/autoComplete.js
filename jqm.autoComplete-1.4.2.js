@@ -73,6 +73,9 @@
 		if (settings) {
 			// get the current text of the input field
 			text = $this.val();
+            // check if it's the same as the last one
+            if (settings._lastText === text) return;
+            settings._lastText = text;
 			// if we don't have enough text zero out the target
 			if (text.length < settings.minLength) {
 				clearTarget($this, $(settings.target));
