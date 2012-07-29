@@ -23,7 +23,8 @@
 		transition: 'fade',
 		matchFromStart: true,
         termParam : 'term',
-        loadingHtml : '<li data-icon="none"><a href="#">Searching...</a></li>'
+        loadingHtml : '<li data-icon="none"><a href="#">Searching...</a></li>',
+        interval : 0
 	},
 	openXHR = {},
 	buildItems = function($this, data, settings) {
@@ -75,11 +76,23 @@
 			text = $this.val();
             // check if it's the same as the last one
             if (settings._lastText === text) return;
-            settings._lastText = text;
+            // reset the timeout...
+            if (settings._retryTimeout) {
+                window.clearTimeout(settings._retryTimeout);
+                settings._retryTimeout = null;
+            }
 			// if we don't have enough text zero out the target
 			if (text.length < settings.minLength) {
 				clearTarget($this, $(settings.target));
 			} else {
+                if (settings.interval && Date.now() - settings._lastRequest < settings.interval) {
+                    settings._retryTimeout = window.setTimeout($.proxy(handleInput, this), settings.interval - Date.now() + settings._lastRequest );
+                    return;
+                }
+                settings._lastRequest = Date.now();
+                // store last text
+                settings._lastText = text;
+                
 				// are we looking at a source array or remote data?
 				if ($.isArray(settings.source)) {
 					data = settings.source.sort().filter(function(element) {
