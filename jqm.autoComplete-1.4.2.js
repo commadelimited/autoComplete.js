@@ -78,6 +78,18 @@
 			settings = $this.jqmData("autocomplete"),
 			element_text,
 			re;
+        if (e) {
+            console.log(e.keyCode);
+            if (e.keyCode == 38) { // up
+                $('.ui-btn-active', $(settings.target)).removeClass('ui-btn-active').prev('li.ui-btn').addClass('ui-btn-active').length
+                    || $('.ui-btn:last', $(settings.target)).addClass('ui-btn-active');
+            } else if (e.keyCode == 40) {
+                $('.ui-btn-active', $(settings.target)).removeClass('ui-btn-active').next('li.ui-btn').addClass('ui-btn-active').length
+                    || $('.ui-btn:first', $(settings.target)).addClass('ui-btn-active');
+            } else if (e.keyCode == 13) {
+                $('.ui-btn-active a', $(settings.target)).click();
+            }
+        }
 		if (settings) {
 			// get the current text of the input field
 			text = $this.val();
@@ -87,6 +99,8 @@
             if (settings._retryTimeout) {
                 window.clearTimeout(settings._retryTimeout);
                 settings._retryTimeout = null;
+                // dont change the result the user is browsing...
+                if (e && (e.keyCode == 13 || e.keyCode == 38 || e.keyCode == 40)) return;
             }
 			// if we don't have enough text zero out the target
 			if (text.length < settings.minLength) {
