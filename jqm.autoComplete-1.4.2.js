@@ -24,22 +24,29 @@
 		matchFromStart: true,
         termParam : 'term',
         loadingHtml : '<li data-icon="none"><a href="#">Searching...</a></li>',
-        interval : 0
+        interval : 0,
+        builder : null
 	},
 	openXHR = {},
 	buildItems = function($this, data, settings) {
-		var str = [];
-		if (data) {
-			$.each(data, function(index, value) {
-				// are we working with objects or strings?
-				if ($.isPlainObject(value)) {
-					str.push('<li data-icon=' + settings.icon + '><a href="' + settings.link + encodeURIComponent(value.value) + '" data-transition="' + settings.transition + '">' + value.label + '</a></li>');
-				} else {
-					str.push('<li data-icon=' + settings.icon + '><a href="' + settings.link + encodeURIComponent(value) + '" data-transition="' + settings.transition + '">' + value + '</a></li>');
-				}
-			});
-		}
-		$(settings.target).html(str.join('')).listview("refresh");
+		var str;
+        if (settings.builder) {
+            str = settings.builder.apply($this.eq(0), [data, settings]);
+        } else {
+            str = [];
+            if (data) {
+                $.each(data, function(index, value) {
+                    // are we working with objects or strings?
+                    if ($.isPlainObject(value)) {
+                        str.push('<li data-icon=' + settings.icon + '><a href="' + settings.link + encodeURIComponent(value.value) + '" data-transition="' + settings.transition + '">' + value.label + '</a></li>');
+                    } else {
+                        str.push('<li data-icon=' + settings.icon + '><a href="' + settings.link + encodeURIComponent(value) + '" data-transition="' + settings.transition + '">' + value + '</a></li>');
+                    }
+                });
+            }
+        }
+        if ($.isArray(str)) str = str.join('');
+		$(settings.target).html(str).listview("refresh");
 
 		// is there a callback?
 		if (settings.callback !== null && $.isFunction(settings.callback)) {
