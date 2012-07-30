@@ -80,10 +80,10 @@
 			re;
         if (e) {
             if (e.keyCode == 38) { // up
-                $('.ui-btn-active', $(settings.target)).removeClass('ui-btn-active').prev('li.ui-btn').addClass('ui-btn-active').length
+                $('.ui-btn-active', $(settings.target)).removeClass('ui-btn-active').prevAll('li.ui-btn:eq(0)').addClass('ui-btn-active').length
                     || $('.ui-btn:last', $(settings.target)).addClass('ui-btn-active');
             } else if (e.keyCode == 40) {
-                $('.ui-btn-active', $(settings.target)).removeClass('ui-btn-active').next('li.ui-btn').addClass('ui-btn-active').length
+                $('.ui-btn-active', $(settings.target)).removeClass('ui-btn-active').nextAll('li.ui-btn:eq(0)').addClass('ui-btn-active').length
                     || $('.ui-btn:first', $(settings.target)).addClass('ui-btn-active');
             } else if (e.keyCode == 13) {
                 $('.ui-btn-active a', $(settings.target)).click();
