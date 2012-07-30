@@ -21,22 +21,32 @@
 		link: null,
 		minLength: 0,
 		transition: 'fade',
-		matchFromStart: true
+		matchFromStart: true,
+        termParam : 'term',
+        loadingHtml : '<li data-icon="none"><a href="#">Searching...</a></li>',
+        interval : 0,
+        builder : null
 	},
 	openXHR = {},
 	buildItems = function($this, data, settings) {
-		var str = [];
-		if (data) {
-			$.each(data, function(index, value) {
-				// are we working with objects or strings?
-				if ($.isPlainObject(value)) {
-					str.push('<li data-icon=' + settings.icon + '><a href="' + settings.link + encodeURIComponent(value.value) + '" data-transition="' + settings.transition + '">' + value.label + '</a></li>');
-				} else {
-					str.push('<li data-icon=' + settings.icon + '><a href="' + settings.link + encodeURIComponent(value) + '" data-transition="' + settings.transition + '">' + value + '</a></li>');
-				}
-			});
-		}
-		$(settings.target).html(str.join('')).listview("refresh");
+		var str;
+        if (settings.builder) {
+            str = settings.builder.apply($this.eq(0), [data, settings]);
+        } else {
+            str = [];
+            if (data) {
+                $.each(data, function(index, value) {
+                    // are we working with objects or strings?
+                    if ($.isPlainObject(value)) {
+                        str.push('<li data-icon=' + settings.icon + '><a href="' + settings.link + encodeURIComponent(value.value) + '" data-transition="' + settings.transition + '">' + value.label + '</a></li>');
+                    } else {
+                        str.push('<li data-icon=' + settings.icon + '><a href="' + settings.link + encodeURIComponent(value) + '" data-transition="' + settings.transition + '">' + value + '</a></li>');
+                    }
+                });
+            }
+        }
+        if ($.isArray(str)) str = str.join('');
+		$(settings.target).html(str).listview("refresh");
 
 		// is there a callback?
 		if (settings.callback !== null && $.isFunction(settings.callback)) {
@@ -68,13 +78,42 @@
 			settings = $this.jqmData("autocomplete"),
 			element_text,
 			re;
+        if (e) {
+            if (e.keyCode == 38) { // up
+                $('.ui-btn-active', $(settings.target)).removeClass('ui-btn-active').prevAll('li.ui-btn:eq(0)').addClass('ui-btn-active').length
+                    || $('.ui-btn:last', $(settings.target)).addClass('ui-btn-active');
+            } else if (e.keyCode == 40) {
+                $('.ui-btn-active', $(settings.target)).removeClass('ui-btn-active').nextAll('li.ui-btn:eq(0)').addClass('ui-btn-active').length
+                    || $('.ui-btn:first', $(settings.target)).addClass('ui-btn-active');
+            } else if (e.keyCode == 13) {
+                $('.ui-btn-active a', $(settings.target)).click().length
+                || $('.ui-btn:first a', $(settings.target)).click();
+            }
+        }
 		if (settings) {
 			// get the current text of the input field
 			text = $this.val();
+            // check if it's the same as the last one
+            if (settings._lastText === text) return;
+            // reset the timeout...
+            if (settings._retryTimeout) {
+                window.clearTimeout(settings._retryTimeout);
+                settings._retryTimeout = null;
+            }
+            // dont change the result the user is browsing...
+            if (e && (e.keyCode == 13 || e.keyCode == 38 || e.keyCode == 40)) return;
 			// if we don't have enough text zero out the target
 			if (text.length < settings.minLength) {
 				clearTarget($this, $(settings.target));
 			} else {
+                if (settings.interval && Date.now() - settings._lastRequest < settings.interval) {
+                    settings._retryTimeout = window.setTimeout($.proxy(handleInput, this), settings.interval - Date.now() + settings._lastRequest );
+                    return;
+                }
+                settings._lastRequest = Date.now();
+                // store last text
+                settings._lastText = text;
+                
 				// are we looking at a source array or remote data?
 				if ($.isArray(settings.source)) {
 					data = settings.source.sort().filter(function(element) {
@@ -105,23 +144,25 @@
 					});
 
 				} else {
-					$.ajax({
+                    var ajax = {
 						type: settings.method,
-						url: settings.source,
-						data: { term: text },
+                        data: {},
+                        dataType: 'json',
 						beforeSend: function(jqXHR) {
 							if (settings.cancelRequests) {
 								if (openXHR[id]) {
 									// If we have an open XML HTTP Request for this autoComplete ID, abort it
 									openXHR[id].abort();
 								} else {
-									// Set a loading indicator as a temporary stop-gap to the response time issue
-									settings.target.html('<li data-icon="none"><a href="#">Searching...</a></li>').listview('refresh');
-									settings.target.closest("fieldset").addClass("ui-search-active");
 								}
 								// Set this request to the open XML HTTP Request list for this ID
 								openXHR[id] = jqXHR;
 							}
+                            if (settings.loadingHtml) {
+                                // Set a loading indicator as a temporary stop-gap to the response time issue
+                                settings.target.html(settings.loadingHtml).listview('refresh');
+                                settings.target.closest("fieldset").addClass("ui-search-active");
+                            }
 						},
 						success: function(data) {
 							buildItems($this, data, settings);
@@ -131,9 +172,20 @@
 							if (settings.cancelRequests) {
 								openXHR[id] = null;
 							}
-						},
-						dataType: 'json'
-					});
+						}
+                    };
+                    if ($.isPlainObject(settings.source)) {
+                        if (settings.source.callback) {
+                            settings.source.callback(text, ajax);
+                        }
+                        for (var k in settings.source) {
+                            if (k != 'callback') ajax[k] = settings.source[k];
+                        }
+                    } else {
+                        ajax.url = settings.source;
+                    }
+					if (settings.termParam) ajax.data[settings.termParam] = text;
+					$.ajax(ajax);
 				}
 			}
 		}
