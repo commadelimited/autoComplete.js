@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jQM Autocomplete</title>
+	<meta content="initial-scale=1, maximum-scale=1, user-scalable=0" name="viewport" />
+	<meta name="viewport" content="width=device-width" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
+	<link rel="stylesheet" href="styles.css" />
+
+	<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
+	<script src="jqm.autoComplete-1.4.3-min.js"></script>
+	<script src="code.js"></script>
+</head>
+
+<body>
+
+	<div data-role="page" id="mainPage">
+
+		<div data-role="header">
+			<h1>jQM Autocomplete</h1>
+			<div>
+				<select id="examples" data-mini="true" data-native-menu="false">
+					<option value="index.html">Remote Array</option>
+					<option value="complex.html">Remote Object</option>
+					<option value="array.html">Local Array</option>
+					<option value="local_complex.html">Local Object</option>
+					<option value="callback.html" selected="true">Callback</option>
+					<option value="search.html">Using Search Input</option>
+				</select>
+			</div>
+		</div>
+
+		<div data-role="content">
+
+			<h3>Callback Function</h3>
+
+			<p>
+				In this example autoComplete uses a local array comprised of objects. The callback function selects the newly added "data-autocomplete" property on each anchor tag in the selected list.
+			</p>
+
+			<pre>
+[
+	{
+    	"value": "TN",
+    	"label": "Tennessee"
+	}
+];
+			</pre>
+
+			<p>
+				<input type="text" id="searchField" placeholder="Categories">
+				<ul id="suggestions" data-role="listview" data-inset="true"></ul>
+			</p>
+
+			<p>
+				<a href="https://github.com/commadelimited/autoComplete.js" data-role="button">Download the code</a>
+			</p>
+
+		</div>
+
+	</div>
+
+	<script>
+
+		$("#mainPage").bind("pageshow", function(e) {
+
+			var autocompleteData = $.parseJSON('[{"value":"AL","label":"Alabama"},{"value":"AK","label":"Alaska"},{"value":"AS","label":"American Samoa"},{"value":"AZ","label":"Arizona"},{"value":"AR","label":"Arkansas"},{"value":"CA","label":"California"},{"value":"CO","label":"Colorado"},{"value":"CT","label":"Connecticut"},{"value":"DE","label":"Delaware"},{"value":"DC","label":"District of Columbia"},{"value":"FL","label":"Florida"},{"value":"GA","label":"Georgia"},{"value":"GU","label":"Guam"},{"value":"HI","label":"Hawaii"},{"value":"ID","label":"Idaho"},{"value":"IL","label":"Illinois"},{"value":"IN","label":"Indiana"},{"value":"IA","label":"Iowa"},{"value":"KS","label":"Kansas"},{"value":"KY","label":"Kentucky"},{"value":"LA","label":"Louisiana"},{"value":"ME","label":"Maine"},{"value":"MD","label":"Maryland"},{"value":"MA","label":"Massachusetts"},{"value":"MI","label":"Michigan"},{"value":"MN","label":"Minnesota"},{"value":"MS","label":"Mississippi"},{"value":"MO","label":"Missouri"},{"value":"MT","label":"Montana"},{"value":"NE","label":"Nebraska"},{"value":"NV","label":"Nevada"},{"value":"NH","label":"New Hampshire"},{"value":"NJ","label":"New Jersey"},{"value":"NM","label":"New Mexico"},{"value":"NY","label":"New York"},{"value":"NC","label":"North Carolina"},{"value":"ND","label":"North Dakota"},{"value":"NI","label":"Northern Marianas Islands"},{"value":"OH","label":"Ohio"},{"value":"OK","label":"Oklahoma"},{"value":"OR","label":"Oregon"},{"value":"PA","label":"Pennsylvania"},{"value":"PR","label":"Puerto Rico"},{"value":"RI","label":"Rhode Island"},{"value":"SC","label":"South Carolina"},{"value":"SD","label":"South Dakota"},{"value":"TN","label":"Tennessee"},{"value":"TX","label":"Texas"},{"value":"UT","label":"Utah"},{"value":"VT","label":"Vermont"},{"value":"VI","label":"Virgin Islands"},{"value":"VA","label":"Virginia"},{"value":"WA","label":"Washington"},{"value":"WV","label":"West Virginia"},{"value":"WI","label":"Wisconsin"},{"value":"WY","label":"Wyoming"}]');
+
+			$("#searchField").autocomplete({
+				target: $('#suggestions'),
+				source: autocompleteData,
+				callback: function(e) {
+					var $a = $(e.currentTarget);
+					$('#searchField').val( $a.data('autocomplete').value );
+					$("#searchField").autocomplete('clear');
+				},
+				link: 'target.html?term=',
+				minLength: 1
+			});
+		});
+	</script>
+
+</body>
+</html>
+

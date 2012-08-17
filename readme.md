@@ -56,6 +56,8 @@ Complex data allows developers to specify which value goes where. This option re
 
 Causing the resulting code to look like this: `<a href="target.html?term=22">Maine</a>`
 
+In 1.4.3 a new "data-autocomplete" property was added to the anchor tag contained with each list item. This attribute contains a serialized version of each item in the array. See "callback-plus.html" for usage.
+
 ### Callback
 
 When using the optional callback function autoComplete will only execute code found within the callback. The click event object is passed into the callback function for use in accessing the information contained in the selection. Here's one use case:
