@@ -1,5 +1,6 @@
-$(document).on("pageinit", function(event){
-	$('#examples').bind('change', function(e, ui) {
-		window.location = e.currentTarget.value;
+$(document).ready(function(){
+	$('#examples').on('change', function(e, ui) {
+		// hackish way
+		setTimeout(function(){window.location.href = e.currentTarget.value;},100)
 	});
 });
