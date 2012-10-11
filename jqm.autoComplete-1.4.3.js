@@ -21,9 +21,15 @@
 		link: null,
 		minLength: 0,
 		transition: 'fade',
-		matchFromStart: true
+		matchFromStart: true,
+        remoteDelay: 0
 	},
 	openXHR = {},
+    state   = {
+        startDelay: new Date(),
+        bgInput: false,
+        pingId: 0,
+    },
 	buildItems = function($this, data, settings) {
 		var str = [];
 		if (data) {
@@ -68,6 +74,7 @@
 			settings = $this.jqmData("autocomplete"),
 			element_text,
 			re;
+
 		if (settings) {
 			// get the current text of the input field
 			text = $this.val();
@@ -103,6 +110,34 @@
 						buildItems($this, data, settings);
 					});
 				} else {
+
+                    // Add a remote delay, preventing the obliteration of any remote searches
+                    var remoteDelay = parseInt(settings.remoteDelay);
+                    if ( settings.remoteDelay > 0 ) {
+                        var now = new Date();
+                        if ( ( now.getMilliseconds() + Date.parse(now) ) - ( state.startDelay.getMilliseconds() + Date.parse(state.startDelay) ) <= settings.remoteDelay ) {
+                            // Track lingering timers and a bit to prevent recursive lookups.
+                            if ( ! state.bgInput ) {
+                                if ( state.pingId ) {
+                                    clearTimeout(state.pingId);
+                                }
+                                // Postponed lookup in the event the user stops typing prior to the threshold
+                                // being broken. The lookup will happen with their last keyed input value.
+                                state.pingId = setTimeout( function() {
+                                    var $me = $( $this.get(0) );
+                                    return function() {
+                                        state.bgInput = true;
+                                        $me.keyup();
+                                    }
+                                }(), remoteDelay );
+                            }
+                            state.bgInput = false;
+                            return;
+                        }
+
+                        state.startDelay = now;
+                    }
+
 					$.ajax({
 						type: settings.method,
 						url: settings.source,
