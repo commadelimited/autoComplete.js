@@ -22,7 +22,8 @@ Clone the git repo - `git clone https://github.com/commadelimited/autoComplete.j
 		link: 'target.html?term=', // link to be attached to each result
 		minLength: 0 // minimum length of search string
 		transition: 'fade',// page transition, default is fade
-		matchFromStart: true // search from start, or anywhere in the string
+		matchFromStart: true, // search from start, or anywhere in the string
+        remoteDelay: 0 // The minimum delay between server calls when using a remote "source"
 	});
 
 AutoComplete can access local arrays or remote data sources.
