@@ -22,7 +22,8 @@
 		minLength: 0,
 		transition: 'fade',
 		matchFromStart: true,
-        remoteDelay: 0
+        remoteDelay: 0,
+        html: function(value) { return value; }
 	},
 	openXHR = {},
     state   = {
@@ -36,9 +37,9 @@
 			$.each(data, function(index, value) {
 				// are we working with objects or strings?
 				if ($.isPlainObject(value)) {
-					str.push('<li data-icon=' + settings.icon + '><a href="' + settings.link + encodeURIComponent(value.value) + '" data-transition="' + settings.transition + '" data-autocomplete=\'' + JSON.stringify(value) + '\'>' + value.label + '</a></li>');
+					str.push('<li data-icon=' + settings.icon + '><a href="' + settings.link + encodeURIComponent(value.value) + '" data-transition="' + settings.transition + '" data-autocomplete=\'' + JSON.stringify(value) + '\'>' + settings.html(value.label) + '</a></li>');
 				} else {
-					str.push('<li data-icon=' + settings.icon + '><a href="' + settings.link + encodeURIComponent(value) + '" data-transition="' + settings.transition + '">' + value + '</a></li>');
+					str.push('<li data-icon=' + settings.icon + '><a href="' + settings.link + encodeURIComponent(value) + '" data-transition="' + settings.transition + '">' + settings.html(value) + '</a></li>');
 				}
 			});
 		}
