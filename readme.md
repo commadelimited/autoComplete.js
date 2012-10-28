@@ -26,6 +26,8 @@ Clone the git repo - `git clone https://github.com/commadelimited/autoComplete.j
         remoteDelay: 0, // The minimum delay between server calls when using a remote "source"
         labelHTML: fn(){}, // optioanl callback function when formatting the display value of list items
         onNoResults: fn(), // optional callback function when no results were matched
+        onRemote: fn(), // optional callback function called just prior to ajax call
+        onRemoteFinished: fn(), // optioanl callback function called just after ajax call has completed
 	});
 
 AutoComplete can access local arrays or remote data sources.

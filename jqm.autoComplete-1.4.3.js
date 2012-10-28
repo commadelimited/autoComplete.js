@@ -24,7 +24,9 @@
 		matchFromStart: true,
         remoteDelay: 0,
         labelHTML: function(value) { return value; },
-        onNoResults: function() { return; }
+        onNoResults: function() { return; },
+        onRemote: function() { return; },
+        onRemoteFinished: function() { return; }
 	},
 	openXHR = {},
     state   = {
@@ -161,6 +163,10 @@
 								// Set this request to the open XML HTTP Request list for this ID
 								openXHR[id] = jqXHR;
 							}
+
+                            if (settings.onRemote && settings.onRemoteFinished) {
+                                settings.onRemote();
+                            }
 						},
 						success: function(data) {
 							buildItems($this, data, settings);
@@ -170,6 +176,10 @@
 							if (settings.cancelRequests) {
 								openXHR[id] = null;
 							}
+
+                            if (settings.onRemoteFinished) {
+                                settings.onRemoteFinished();
+                            }
 						},
 						dataType: 'json'
 					});
