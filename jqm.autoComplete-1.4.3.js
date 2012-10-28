@@ -23,7 +23,8 @@
 		transition: 'fade',
 		matchFromStart: true,
         remoteDelay: 0,
-        labelHTML: function(value) { return value; }
+        labelHTML: function(value) { return value; },
+        onNoResults: function() { return; }
 	},
 	openXHR = {},
     state   = {
@@ -54,6 +55,10 @@
 			$this.trigger("targetUpdated.autocomplete");
 		} else {
 			$this.trigger("targetCleared.autocomplete");
+
+            if (settings.onNoResults) {
+                settings.onNoResults();
+            }
 		}
 	},
 	attachCallback = function(settings) {
