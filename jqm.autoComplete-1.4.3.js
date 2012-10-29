@@ -25,7 +25,7 @@
         labelHTML: function(value) { return value; },
         onNoResults: function() { return; },
         onLoading: function() { return; },
-        onLoadingFinished: function() { return; }
+        onLoadingFinished: function() { return; },
         termParam : 'term',
         loadingHtml : '<li data-icon="none"><a href="#">Searching...</a></li>',
         interval : 0,
@@ -120,6 +120,7 @@
                     settings._retryTimeout = window.setTimeout($.proxy(handleInput, this), settings.interval - Date.now() + settings._lastRequest );
                     return;
                 }
+                console.log('search');
                 settings._lastRequest = Date.now();
                 // store last text
                 settings._lastText = text;
@@ -190,7 +191,6 @@
                                 settings.onLoadingFinished();
                             }
 						},
-						dataType: 'json'
 					};
 
                     if ($.isPlainObject(settings.source)) {
