@@ -120,7 +120,6 @@
                     settings._retryTimeout = window.setTimeout($.proxy(handleInput, this), settings.interval - Date.now() + settings._lastRequest );
                     return;
                 }
-                console.log('search');
                 settings._lastRequest = Date.now();
                 // store last text
                 settings._lastText = text;
