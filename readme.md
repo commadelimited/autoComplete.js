@@ -22,7 +22,14 @@ Clone the git repo - `git clone https://github.com/commadelimited/autoComplete.j
 		link: 'target.html?term=', // link to be attached to each result
 		minLength: 0 // minimum length of search string
 		transition: 'fade',// page transition, default is fade
-		matchFromStart: true // search from start, or anywhere in the string
+		matchFromStart: true, // search from start, or anywhere in the string
+        loadingHtml : '<li data-icon="none"><a href="#">Searching...</a></li>', // HTML to display when searching remotely
+        interval: 0, // The minimum delay between server calls when using a remote "source"
+        builder : null, // optional callback to build HTML for autocomplete
+        labelHTML: fn(){}, // optioanl callback function when formatting the display value of list items
+        onNoResults: fn(), // optional callback function when no results were matched
+        onLoading: fn(), // optional callback function called just prior to ajax call
+        onLoadingFinished: fn(), // optioanl callback function called just after ajax call has completed
 	});
 
 AutoComplete can access local arrays or remote data sources.
