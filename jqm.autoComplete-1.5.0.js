@@ -92,6 +92,13 @@
 			element_text,
 			re;
 
+		// Fix For IE8 and earlier versions.
+		if (!Date.now) {
+			Date.now = function() {
+				return new Date().valueOf();
+			}
+		}
+
 		if (e) {
 			if (e.keyCode === 38) { // up
 				$('.ui-btn-active', $(settings.target))
