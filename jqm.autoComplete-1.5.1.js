@@ -1,14 +1,11 @@
 /*
 	Name: autoComplete
-	Contributors:
+	Authors:
 		Andy Matthews: @commadelimited
 		Raymond Camden: @cfjedimaster
-		Jim Pease: @jmpease
-		Trever Hall: @hallta
-		@panrafal
 
 	Website: http://andyMatthews.net
-	Version: 1.5.0
+	Version: 1.5.1
 */
 (function($) {
 
@@ -96,7 +93,7 @@
 		if (!Date.now) {
 			Date.now = function() {
 				return new Date().valueOf();
-			}
+			};
 		}
 
 		if (e) {
