@@ -189,8 +189,8 @@
 
 							if (settings.loadingHtml) {
 								// Set a loading indicator as a temporary stop-gap to the response time issue
-								settings.target.html(settings.loadingHtml).listview('refresh');
-								settings.target.closest("fieldset").addClass("ui-search-active");
+								$(settings.target).html(settings.loadingHtml).listview('refresh');
+								$(settings.target).closest("fieldset").addClass("ui-search-active");
 							}
 						},
 						success: function(data) {
