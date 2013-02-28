@@ -29,7 +29,8 @@
 		termParam : 'term',
 		loadingHtml : '<li data-icon="none"><a href="#">Searching...</a></li>',
 		interval : 0,
-		builder : null
+		builder : null,
+                dataHandler : null
 	},
 	openXHR = {},
 	buildItems = function($this, data, settings) {
@@ -39,6 +40,9 @@
 		} else {
 			str = [];
 			if (data) {
+                                if (settings.dataHandler) {
+                                        data = settings.dataHandler(data);
+                                }
 				$.each(data, function(index, value) {
 					// are we working with objects or strings?
 					if ($.isPlainObject(value)) {
