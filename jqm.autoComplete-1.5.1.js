@@ -123,6 +123,8 @@
 			if (settings._lastText === text) {
 				return;
 			}
+			// store last text
+			settings._lastText = text;
 			// reset the timeout...
 			if (settings._retryTimeout) {
 				window.clearTimeout(settings._retryTimeout);
@@ -141,8 +143,6 @@
 					return;
 				}
 				settings._lastRequest = Date.now();
-				// store last text
-				settings._lastText = text;
 
 				// are we looking at a source array or remote data?
 				if ($.isArray(settings.source)) {
