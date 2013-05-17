@@ -30,6 +30,7 @@ Clone the git repo - `git clone https://github.com/commadelimited/autoComplete.j
         onNoResults: fn(), // optional callback function when no results were matched
         onLoading: fn(), // optional callback function called just prior to ajax call
         onLoadingFinished: fn(), // optioanl callback function called just after ajax call has completed
+        datahandler : fn(), // optional function to convert the received JSON data to the format described below
 	});
 
 AutoComplete can access local arrays or remote data sources.

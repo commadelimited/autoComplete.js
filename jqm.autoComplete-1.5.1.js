@@ -29,7 +29,8 @@
 		termParam : 'term',
 		loadingHtml : '<li data-icon="none"><a href="#">Searching...</a></li>',
 		interval : 0,
-		builder : null
+		builder : null,
+                dataHandler : null
 	},
 	openXHR = {},
 	buildItems = function($this, data, settings) {
@@ -39,10 +40,13 @@
 		} else {
 			str = [];
 			if (data) {
+                                if (settings.dataHandler) {
+                                        data = settings.dataHandler(data);
+                                }
 				$.each(data, function(index, value) {
 					// are we working with objects or strings?
 					if ($.isPlainObject(value)) {
-						str.push('<li data-icon=' + settings.icon + '><a href="' + settings.link + encodeURIComponent(value.value) + '" data-transition="' + settings.transition + '" data-autocomplete=\'' + JSON.stringify(value) + '\'>' + settings.labelHTML(value.label) + '</a></li>');
+						str.push('<li data-icon=' + settings.icon + '><a href="' + settings.link + encodeURIComponent(value.value) + '" data-transition="' + settings.transition + '" data-autocomplete=\'' + JSON.stringify(value).replace(/'/g, "&#39;") + '\'>' + settings.labelHTML(value.label) + '</a></li>');
 					} else {
 						str.push('<li data-icon=' + settings.icon + '><a href="' + settings.link + encodeURIComponent(value) + '" data-transition="' + settings.transition + '">' + settings.labelHTML(value) + '</a></li>');
 					}
@@ -119,6 +123,8 @@
 			if (settings._lastText === text) {
 				return;
 			}
+			// store last text
+			settings._lastText = text;
 			// reset the timeout...
 			if (settings._retryTimeout) {
 				window.clearTimeout(settings._retryTimeout);
@@ -137,8 +143,6 @@
 					return;
 				}
 				settings._lastRequest = Date.now();
-				// store last text
-				settings._lastText = text;
 
 				// are we looking at a source array or remote data?
 				if ($.isArray(settings.source)) {
