@@ -29,26 +29,31 @@
 		termParam : 'term',
 		loadingHtml : '<li data-icon="none"><a href="#">Searching...</a></li>',
 		interval : 0,
-		builder : null,
-                dataHandler : null
+		builder: null,
+		dataHandler : null
+		class: null
 	},
 	openXHR = {},
 	buildItems = function($this, data, settings) {
 		var str;
+		var vclass = '';
+		if (settings.class) {
+			vclass = 'class="' + settings.class + '"';
+		}
 		if (settings.builder) {
 			str = settings.builder.apply($this.eq(0), [data, settings]);
 		} else {
 			str = [];
 			if (data) {
-                                if (settings.dataHandler) {
-                                        data = settings.dataHandler(data);
-                                }
+				if (settings.dataHandler) {
+				    data = settings.dataHandler(data);
+				}
 				$.each(data, function(index, value) {
 					// are we working with objects or strings?
 					if ($.isPlainObject(value)) {
-						str.push('<li data-icon=' + settings.icon + '><a href="' + settings.link + encodeURIComponent(value.value) + '" data-transition="' + settings.transition + '" data-autocomplete=\'' + JSON.stringify(value).replace(/'/g, "&#39;") + '\'>' + settings.labelHTML(value.label) + '</a></li>');
+						str.push('<li ' + vclass + ' data-icon=' + settings.icon + '><a href="' + settings.link + encodeURIComponent(value.value) + '" data-transition="' + settings.transition + '" data-autocomplete=\'' + JSON.stringify(value).replace(/'/g, "&#39;") + '\'>' + settings.labelHTML(value.label) + '</a></li>');
 					} else {
-						str.push('<li data-icon=' + settings.icon + '><a href="' + settings.link + encodeURIComponent(value) + '" data-transition="' + settings.transition + '">' + settings.labelHTML(value) + '</a></li>');
+						str.push('<li ' + vclass + ' data-icon=' + settings.icon + '><a href="' + settings.link + encodeURIComponent(value) + '" data-transition="' + settings.transition + '">' + settings.labelHTML(value) + '</a></li>');
 					}
 				});
 			}
