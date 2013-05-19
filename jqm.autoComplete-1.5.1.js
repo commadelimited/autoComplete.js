@@ -30,13 +30,13 @@
 		loadingHtml : '<li data-icon="none"><a href="#">Searching...</a></li>',
 		interval : 0,
 		builder: null,
-		dataHandler : null
+		dataHandler : null,
 		class: null
 	},
 	openXHR = {},
 	buildItems = function($this, data, settings) {
-		var str;
-		var vclass = '';
+		var str,
+			vclass = '';
 		if (settings.class) {
 			vclass = 'class="' + settings.class + '"';
 		}
@@ -46,7 +46,7 @@
 			str = [];
 			if (data) {
 				if (settings.dataHandler) {
-				    data = settings.dataHandler(data);
+					data = settings.dataHandler(data);
 				}
 				$.each(data, function(index, value) {
 					// are we working with objects or strings?
@@ -120,7 +120,6 @@
 				$('.ui-btn-active a', $(settings.target)).click().length  || $('.ui-btn:first a', $(settings.target)).click();
 			}
 		}
-
 		if (settings) {
 			// get the current text of the input field
 			text = $this.val();

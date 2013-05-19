@@ -105,7 +105,7 @@ This method will clear the "target" listview.  Useful if you need to empty the l
 This method will clean up any bound events or data stored on the element.
 
 	$("#searchField").autocomplete("destroy");
-	
+
 ## Events
 
 ### targetUpdated.autocomplete
