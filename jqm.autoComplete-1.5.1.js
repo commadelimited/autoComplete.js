@@ -31,7 +31,8 @@
 		interval : 0,
 		builder: null,
 		dataHandler : null,
-		class: null
+		class: null,
+		forceFirstChoiceOnEnterKey : true
 	},
 	openXHR = {},
 	buildItems = function($this, data, settings) {
@@ -116,7 +117,7 @@
 					.removeClass('ui-btn-active').nextAll('li.ui-btn:eq(0)')
 					.addClass('ui-btn-active').length ||
 						$('.ui-btn:first', $(settings.target)).addClass('ui-btn-active');
-			} else if (e.keyCode === 13) {
+			} else if (e.keyCode === 13 && settings.forceFirstChoiceOnEnterKey) {
 				$('.ui-btn-active a', $(settings.target)).click().length  || $('.ui-btn:first a', $(settings.target)).click();
 			}
 		}
