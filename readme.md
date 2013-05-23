@@ -30,7 +30,7 @@ Clone the git repo - `git clone https://github.com/commadelimited/autoComplete.j
 		onNoResults: fn(), // optional callback function when no results were matched
 		onLoading: fn(), // optional callback function called just prior to ajax call
 		onLoadingFinished: fn(), // optional callback function called just after ajax call has completed
-		datahandler : fn(), // optional function to convert the received JSON data to the format described below
+		dataHandler : fn(), // optional function to convert the received JSON data to the format described below
 		class: 'tinted' // optional class name for listview's <li> tag
 	});
 
