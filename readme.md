@@ -31,7 +31,8 @@ Clone the git repo - `git clone https://github.com/commadelimited/autoComplete.j
 		onLoading: fn(), // optional callback function called just prior to ajax call
 		onLoadingFinished: fn(), // optional callback function called just after ajax call has completed
 		datahandler : fn(), // optional function to convert the received JSON data to the format described below
-		class: 'tinted' // optional class name for listview's <li> tag
+		class: 'tinted', // optional class name for listview's <li> tag
+		forceFirstChoiceOnEnterKey : true // force the first choice in the list when Enter key is hit
 	});
 
 AutoComplete can access local arrays or remote data sources.
