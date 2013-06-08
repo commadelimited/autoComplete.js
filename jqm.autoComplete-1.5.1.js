@@ -118,7 +118,8 @@
 					.addClass('ui-btn-active').length ||
 						$('.ui-btn:first', $(settings.target)).addClass('ui-btn-active');
 			} else if (e.keyCode === 13 && settings.forceFirstChoiceOnEnterKey) {
-				$('.ui-btn-active a', $(settings.target)).click().length  || $('.ui-btn:first a', $(settings.target)).click();
+				$('.ui-btn-active a', $(settings.target)).click().length  ||
+					$('.ui-btn:first a', $(settings.target)).click();
 			}
 		}
 		if (settings) {
