@@ -5,7 +5,7 @@
 		Raymond Camden: @cfjedimaster
 
 	Website: http://andyMatthews.net
-	Version: 1.5.1
+	Version: 1.5.2
 */
 (function($) {
 
@@ -152,14 +152,17 @@
 
 				// are we looking at a source array or remote data?
 				if ($.isArray(settings.source)) {
+					// this function allows meta characters like +, to be searched for.
+					// Example would be C++
+					var escape = function( value ) { return value.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, "\\$&"); };
 					data = settings.source.sort().filter(function(element) {
 						// matching from start, or anywhere in the string?
 						if (settings.matchFromStart) {
 							// from start
-							element_text, re = new RegExp('^' + text, 'i');
+							element_text, re = new RegExp('^' + escape(text), 'i');
 						} else {
 							// anywhere
-							element_text, re = new RegExp(text, 'i');
+							element_text, re = new RegExp(escape(text), 'i');
 						}
 						if ($.isPlainObject(element)) {
 							element_text = element.label;
