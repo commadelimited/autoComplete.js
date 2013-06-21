@@ -31,15 +31,15 @@
 		interval : 0,
 		builder: null,
 		dataHandler : null,
-		class: null,
+		klass: null,
 		forceFirstChoiceOnEnterKey : true
 	},
 	openXHR = {},
 	buildItems = function($this, data, settings) {
 		var str,
 			vclass = '';
-		if (settings.class) {
-			vclass = 'class="' + settings.class + '"';
+		if (settings.klass) {
+			vclass = 'class="' + settings.klass + '"';
 		}
 		if (settings.builder) {
 			str = settings.builder.apply($this.eq(0), [data, settings]);
