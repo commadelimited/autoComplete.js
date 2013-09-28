@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>jQM Autocomplete</title>
+	<meta content="initial-scale=1, maximum-scale=1, user-scalable=0" name="viewport" />
+	<meta name="viewport" content="width=device-width" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+	<link rel="stylesheet" href="styles.css" />
+
+	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+	<script src="jqm.autoComplete-1.5.2-min.js"></script>
+	<script src="code.js"></script>
+</head>
+
+<body>
+
+	<div data-role="page" id="mainPage">
+
+		<div data-role="header">
+			<h1>jQM Autocomplete</h1>
+			<div>
+				<select id="examples" data-mini="true" data-native-menu="false">
+					<option value="index.html">Remote Array</option>
+					<option value="complex.html">Remote Object</option>
+					<option value="array.html">Local Array</option>
+					<option value="local_complex.html">Local Object</option>
+					<option value="callback.html" selected="true">Callback</option>
+					<option value="callback-plus.html">Callback Plus</option>
+					<option value="search.html">Using Search Input</option>
+				</select>
+			</div>
+		</div>
+
+		<div data-role="content">
+
+			<h3>Callback Function</h3>
+
+			<p>
+				In this example autoComplete uses a local array comprised of strings.
+			</p>
+
+			<pre>
+[
+    "JavaScript",
+    "Python",
+    "Ruby"
+];
+			</pre>
+
+			<p>
+				<input type="text" id="searchField" placeholder="Categories">
+				<ul id="suggestions" data-role="listview" data-inset="true"></ul>
+			</p>
+
+			<p>
+				<a href="https://github.com/commadelimited/autoComplete.js" data-role="button">Download the code</a>
+			</p>
+
+		</div>
+
+	</div>
+
+	<script>
+
+		$("#mainPage").bind("pageshow", function(e) {
+
+			var data = ['C', 'Clojure', 'Java', 'Scala', 'Objective-C', 'C++', 'PHP', 'C#', '(Visual) Basic', 'Python', 'Perl', 'JavaScript', 'Ruby', 'Visual Basic .NET', 'Transact-SQL', 'Lisp', 'Pascal', 'Bash', 'PL/SQL', 'Delphi/Object Pascal', 'Ada', 'MATLAB'];
+
+			$("#searchField").autocomplete({
+				target: $('#suggestions'),
+				source: data,
+				callback: function(e) {
+					var $a = $(e.currentTarget);
+					$('#searchField').val($a.text());
+					$("#searchField").autocomplete('clear');
+				},
+				link: 'target.html?term=',
+				minLength: 1
+			});
+		});
+	</script>
+
+</body>
+</html>
+

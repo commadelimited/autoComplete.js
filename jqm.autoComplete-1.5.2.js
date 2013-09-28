@@ -32,7 +32,8 @@
 		builder: null,
 		dataHandler : null,
 		klass: null,
-		forceFirstChoiceOnEnterKey : true
+		forceFirstChoiceOnEnterKey : true,
+		transformResponse: null
 	},
 	openXHR = {},
 	buildItems = function($this, data, settings) {
@@ -52,6 +53,9 @@
 				$.each(data, function(index, value) {
 					// are we working with objects or strings?
 					if ($.isPlainObject(value)) {
+						if(settings.transformResponse){
+							value = settings.transformResponse(value);
+						}
 						str.push('<li ' + vclass + ' data-icon=' + settings.icon + '><a href="' + settings.link + encodeURIComponent(value.value) + '" data-transition="' + settings.transition + '" data-autocomplete=\'' + JSON.stringify(value).replace(/'/g, "&#39;") + '\'>' + settings.labelHTML(value.label) + '</a></li>');
 					} else {
 						str.push('<li ' + vclass + ' data-icon=' + settings.icon + '><a href="' + settings.link + encodeURIComponent(value) + '" data-transition="' + settings.transition + '">' + settings.labelHTML(value) + '</a></li>');
