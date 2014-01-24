@@ -144,3 +144,5 @@ You are invited to contribute code and suggestions to this project. The more the
 ### Custom bits:
 
 MIT/GPL license
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/commadelimited/autocomplete.js/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
