@@ -6,6 +6,9 @@
 
 	Website: http://andyMatthews.net
 	Version: 1.5.2
+	GA: Add data: {} and change data: {}, to data: settings.data, so can pass in variables.
+	  : data-icon="none" >> data-icon="false" jqm 1.4
+	  : && !jQuery.isEmptyObject(data) stop typeerror e when returned data {}
 */
 (function($) {
 
@@ -19,6 +22,7 @@
 		source: null,
 		callback: null,
 		link: null,
+		data: {},
 		minLength: 0,
 		transition: 'fade',
 		matchFromStart: true,
@@ -27,7 +31,7 @@
 		onLoading: function() { return; },
 		onLoadingFinished: function() { return; },
 		termParam : 'term',
-		loadingHtml : '<li data-icon="none"><a href="#">Searching...</a></li>',
+		loadingHtml : '<li data-icon="false"><a href="#">Searching...</a></li>',
 		interval : 0,
 		builder: null,
 		dataHandler : null,
@@ -187,7 +191,7 @@
 				} else {
 					var ajax = {
 						type: settings.method,
-						data: {},
+						data: settings.data,
 						dataType: 'json',
 						beforeSend: function(jqXHR) {
 							if (settings.cancelRequests) {
