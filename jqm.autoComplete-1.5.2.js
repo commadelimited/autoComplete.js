@@ -8,7 +8,6 @@
 	Version: 1.5.2
 	GA: Add data: {} and change data: {}, to data: settings.data, so can pass in variables.
 	  : data-icon="none" >> data-icon="false" jqm 1.4
-	  : && !jQuery.isEmptyObject(data) stop typeerror e when returned data {}
 */
 (function($) {
 
