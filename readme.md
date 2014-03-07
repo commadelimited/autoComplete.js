@@ -24,7 +24,7 @@ Clone the git repo - `git clone https://github.com/commadelimited/autoComplete.j
 		transition: 'fade',// page transition, default is fade
 		matchFromStart: true, // search from start, or anywhere in the string
 		loadingHtml : '<li data-icon="none"><a href="#">Searching...</a></li>', // HTML to display when searching remotely
-		interval: 0, // The minimum delay between server calls when using a remote "source"
+		interval: 0, // The minimum delay in milliseconds between server calls when using a remote "source"
 		builder : null, // optional callback to build HTML for autocomplete
 		labelHTML: fn(){}, // optional callback function when formatting the display value of list items
 		onNoResults: fn(), // optional callback function when no results were matched
