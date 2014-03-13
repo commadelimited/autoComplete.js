@@ -27,6 +27,7 @@
 		matchFromStart: true,
 		labelHTML: function(value) { return value; },
 		onNoResults: function() { return; },
+		onSingleResult: function() { return; },
 		onLoading: function() { return; },
 		onLoadingFinished: function() { return; },
 		termParam : 'term',
@@ -76,8 +77,14 @@
 			attachCallback(settings);
 		}
 
-		if (str.length > 0) {
+		if (str.length > 1) {
 			$this.trigger("targetUpdated.autocomplete");
+		} else if (str.length === 1) {
+			$this.trigger("targetCleared.autocomplete");
+
+			if (settings.onSingleResult) {
+				settings.onSingleResult();
+			}
 		} else {
 			$this.trigger("targetCleared.autocomplete");
 
