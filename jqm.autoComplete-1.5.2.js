@@ -77,19 +77,15 @@
 			attachCallback(settings);
 		}
 
-		if (str.length > 1) {
-			$this.trigger("targetUpdated.autocomplete");
-		} else if (str.length === 1) {
-			$this.trigger("targetCleared.autocomplete");
+		$this.trigger("targetUpdated.autocomplete");
+		if (str.length === 0) {
+			if (settings.onNoResults) {
+				settings.onNoResults();
+			}
+		} else if (data.length === 1){
 
 			if (settings.onSingleResult) {
 				settings.onSingleResult();
-			}
-		} else {
-			$this.trigger("targetCleared.autocomplete");
-
-			if (settings.onNoResults) {
-				settings.onNoResults();
 			}
 		}
 	},
