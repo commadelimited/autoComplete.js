@@ -27,6 +27,7 @@
 		matchFromStart: true,
 		labelHTML: function(value) { return value; },
 		onNoResults: function() { return; },
+		onSingleResult: function() { return; },
 		onLoading: function() { return; },
 		onLoadingFinished: function() { return; },
 		termParam : 'term',
@@ -76,13 +77,15 @@
 			attachCallback(settings);
 		}
 
-		if (str.length > 0) {
-			$this.trigger("targetUpdated.autocomplete");
-		} else {
-			$this.trigger("targetCleared.autocomplete");
-
+		$this.trigger("targetUpdated.autocomplete");
+		if (str.length === 0) {
 			if (settings.onNoResults) {
 				settings.onNoResults();
+			}
+		} else if (data.length === 1){
+
+			if (settings.onSingleResult) {
+				settings.onSingleResult();
 			}
 		}
 	},
